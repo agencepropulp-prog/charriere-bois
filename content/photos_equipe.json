@@ -1,0 +1,28 @@
+{
+  "membres": [
+    {
+      "nom": "Prénom NOM",
+      "fonction": "Gérant · Fondateur",
+      "description": "Passionné de bois depuis toujours, il a fondé l'entreprise en 1997.",
+      "photo": ""
+    },
+    {
+      "nom": "Prénom NOM",
+      "fonction": "Responsable Commerce",
+      "description": "Expert en essences et panneaux, il accompagne artisans et particuliers.",
+      "photo": ""
+    },
+    {
+      "nom": "Prénom NOM",
+      "fonction": "Chef d'atelier",
+      "description": "Maître de la scie CNC et du rabotage, il prépare vos pièces sur mesure.",
+      "photo": ""
+    },
+    {
+      "nom": "Prénom NOM",
+      "fonction": "Conseiller Isolation éco",
+      "description": "Spécialiste des matériaux biosourcés.",
+      "photo": ""
+    }
+  ]
+}

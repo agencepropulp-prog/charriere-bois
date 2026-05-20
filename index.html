@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHARRIERE Bois — Négoce bois, panneaux & isolation · Marsac-sur-l'Isle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Netlify Identity (pour le CMS) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<style>
+:root{
+  --bois:#6B3D1E;--bois-mid:#8B5230;--bois-lt:#C4935A;--bois-pale:#F5EDE2;
+  --vert:#2D5A3D;--vert-lt:#4A8560;--vert-pale:#EAF2EC;
+  --charbon:#1C1C1B;--gris:#6B6B68;--gris-pale:#F4F2EE;--blanc:#FDFCFA;
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--blanc);color:var(--charbon);overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}ul{list-style:none;}
+
+/* ── BANDEAU ALERTE ─────────────────────────────────── */
+#alerte-band{
+  display:none;
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  padding:10px 48px;
+  text-align:center;font-size:13px;font-weight:500;
+  align-items:center;justify-content:center;gap:12px;
+}
+#alerte-band.show{display:flex;}
+#alerte-band.fermeture{background:#C4935A;color:#fff;}
+#alerte-band.promo{background:#2D5A3D;color:#fff;}
+#alerte-band.evenement{background:#6B3D1E;color:#fff;}
+#alerte-band.info{background:#1C1C1B;color:rgba(255,255,255,.9);}
+#alerte-band a{color:inherit;text-decoration:underline;text-underline-offset:3px;}
+.alerte-close{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:inherit;font-size:18px;cursor:pointer;opacity:.7;
+}
+.alerte-close:hover{opacity:1;}
+/* Quand bandeau actif, décaler nav */
+body.has-alerte nav{top:40px;}
+body.has-alerte{padding-top:106px;}
+
+/* ── NAV ────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:66px;
+  background:rgba(28,28,27,.95);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  transition:background .3s,top .3s;
+}
+nav.scrolled{background:rgba(28,28,27,1);}
+.nav-logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--blanc);display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.nav-logo span{color:var(--bois-lt);}
+.nav-center{display:flex;align-items:center;gap:6px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-center a{font-size:12.5px;color:rgba(255,255,255,.7);letter-spacing:.04em;padding:6px 12px;border-radius:3px;transition:color .2s,background .2s;white-space:nowrap;}
+.nav-center a:hover{color:var(--blanc);background:rgba(255,255,255,.07);}
+.nav-drop{position:relative;}
+.nav-drop>a::after{content:' ▾';font-size:9px;opacity:.5;}
+.drop-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--charbon);border:1px solid rgba(255,255,255,.1);border-radius:6px;min-width:220px;padding:8px;z-index:300;box-shadow:0 20px 40px rgba(0,0,0,.4);}
+.nav-drop:hover .drop-menu{display:block;}
+.drop-menu a{display:block;padding:9px 12px;font-size:12.5px;color:rgba(255,255,255,.65);border-radius:4px;transition:background .15s,color .15s;}
+.drop-menu a:hover{background:rgba(255,255,255,.08);color:var(--blanc);}
+.drop-section{font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--bois-lt);padding:10px 12px 4px;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-cta{background:var(--bois-lt);color:var(--blanc)!important;padding:8px 18px;border-radius:3px;font-size:12.5px;font-weight:500;letter-spacing:.06em;transition:background .2s!important;white-space:nowrap;}
+.nav-cta:hover{background:var(--bois-mid)!important;}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;}
+.nav-burger span{display:block;width:22px;height:1.5px;background:var(--blanc);transition:all .25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:66px;left:0;right:0;bottom:0;background:rgba(28,28,27,.99);z-index:150;overflow-y:auto;padding:32px 24px;}
+.mobile-menu.open{display:block;}
+.mob-section{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--bois-lt);margin:24px 0 8px;}
+.mob-section:first-child{margin-top:0;}
+.mobile-menu a{display:block;font-size:16px;color:rgba(255,255,255,.8);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);transition:color .2s;}
+.mobile-menu a:hover{color:var(--blanc);}
+
+/* ── POPUP ──────────────────────────────────────────── */
+#popup-overlay{
+  display:none;position:fixed;inset:0;z-index:400;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:24px;
+}
+#popup-overlay.show{display:flex;}
+.popup-box{
+  background:var(--blanc);border-radius:8px;
+  max-width:520px;width:100%;overflow:hidden;
+  position:relative;
+  animation:popIn .35s var(--ease);
+}
+@keyframes popIn{from{opacity:0;transform:scale(.94) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.popup-header{padding:28px 28px 0;}
+.popup-header.info{border-top:4px solid #3B7DC4;}
+.popup-header.promo{border-top:4px solid var(--vert);}
+.popup-header.alerte{border-top:4px solid #C4935A;}
+.popup-header.evenement{border-top:4px solid var(--bois);}
+.popup-tag{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;}
+.popup-tag.info{color:#3B7DC4;}.popup-tag.promo{color:var(--vert);}
+.popup-tag.alerte{color:var(--bois-lt);}.popup-tag.evenement{color:var(--bois);}
+.popup-title{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px;}
+.popup-img{width:100%;max-height:200px;object-fit:cover;margin:16px 0 0;}
+.popup-body{padding:16px 28px 28px;}
+.popup-text{font-size:15px;color:var(--gris);line-height:1.7;margin-bottom:20px;}
+.popup-btn{
+  display:inline-block;padding:11px 24px;border-radius:3px;
+  font-size:13px;font-weight:500;letter-spacing:.07em;
+  background:var(--bois-lt);color:var(--blanc);margin-right:12px;
+  transition:background .2s;
+}
+.popup-btn:hover{background:var(--bois-mid);}
+.popup-close-btn{
+  display:inline-block;font-size:13px;color:var(--gris);cursor:pointer;
+  border-bottom:1px solid transparent;transition:color .2s,border-color .2s;
+}
+.popup-close-btn:hover{color:var(--charbon);border-color:var(--gris);}
+.popup-x{
+  position:absolute;top:14px;right:16px;
+  background:none;border:none;font-size:20px;cursor:pointer;
+  color:var(--gris);line-height:1;
+}
+.popup-x:hover{color:var(--charbon);}
+
+/* ── HERO ───────────────────────────────────────────── */
+#accueil{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.42) saturate(1.1);}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(145deg,#3d1f0a 0%,#6B3D1E 40%,#2D5A3D 100%);}
+.hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");mix-blend-mode:overlay;opacity:.5;pointer-events:none;}
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:800px;}
+.hero-eyebrow{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--bois-lt);margin-bottom:20px;opacity:0;animation:fadeUp .8s .3s var(--ease) forwards;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'—';margin:0 10px;opacity:.45;}
+.hero-title{font-family:var(--serif);font-size:clamp(38px,6vw,80px);font-weight:900;line-height:1.06;color:var(--blanc);margin-bottom:18px;opacity:0;animation:fadeUp .9s .5s var(--ease) forwards;}
+.hero-title em{font-style:italic;color:var(--bois-lt);}
+.hero-since{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:2px;padding:6px 16px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:40px;opacity:0;animation:fadeUp .9s .65s var(--ease) forwards;}
+.hero-since b{color:var(--bois-lt);font-weight:500;}
+.hero-sub{font-size:clamp(14px,2vw,17px);color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:44px;opacity:0;animation:fadeUp .9s .75s var(--ease) forwards;}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s .9s var(--ease) forwards;}
+.btn-primary{background:var(--bois-lt);color:var(--blanc);padding:13px 32px;border-radius:3px;border:1.5px solid var(--bois-lt);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:all .25s var(--ease);cursor:pointer;}
+.btn-primary:hover{background:var(--bois-mid);border-color:var(--bois-mid);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--blanc);padding:13px 32px;border-radius:3px;border:1.5px solid rgba(255,255,255,.28);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:all .25s var(--ease);cursor:pointer;}
+.btn-outline:hover{border-color:rgba(255,255,255,.65);}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1s 1.4s forwards;cursor:pointer;}
+.hero-scroll span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.4),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+
+/* ── COMMUNS ────────────────────────────────────────── */
+.section{padding:88px 48px;}.section-alt{padding:88px 48px;background:var(--gris-pale);}
+.container{max-width:1160px;margin:0 auto;}
+.label{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--bois-lt);margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.label::before{content:'';display:block;width:24px;height:1px;background:currentColor;opacity:.6;}
+.h2{font-family:var(--serif);font-size:clamp(26px,4vw,44px);font-weight:700;line-height:1.14;color:var(--charbon);margin-bottom:20px;}
+.h2 em{font-style:italic;color:var(--bois-mid);}
+.lead{font-size:16px;line-height:1.85;color:var(--gris);max-width:520px;}
+.btn-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--bois-mid);border-bottom:1px solid var(--bois-lt);padding-bottom:2px;transition:gap .2s,color .2s;}
+.btn-link:hover{gap:14px;color:var(--bois);}
+.btn-link::after{content:'→';}
+
+/* À PROPOS */
+#apropos{background:var(--blanc);}
+.apropos-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.apropos-img{position:relative;}
+.img-frame{width:100%;aspect-ratio:4/5;background:var(--bois-pale);border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--bois-mid);opacity:.5;text-align:center;}
+.img-frame img{width:100%;height:100%;object-fit:cover;opacity:1;}
+.apropos-img::before{content:'';position:absolute;top:-16px;left:-16px;width:55%;height:55%;border:1.5px solid var(--bois-lt);border-radius:4px;opacity:.35;z-index:-1;}
+.apropos-badge{position:absolute;bottom:-20px;right:-20px;background:var(--bois);color:var(--blanc);padding:18px 22px;border-radius:4px;text-align:center;}
+.badge-num{font-family:var(--serif);font-size:34px;font-weight:900;color:var(--bois-lt);line-height:1;}
+.badge-txt{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:4px;}
+.val-list{display:flex;flex-direction:column;gap:14px;margin:32px 0;}
+.val-item{display:flex;gap:14px;align-items:flex-start;padding:14px;border-left:3px solid transparent;border-radius:0 4px 4px 0;transition:border-color .2s,background .2s;}
+.val-item:hover{border-left-color:var(--bois-lt);background:var(--bois-pale);}
+.val-icon{width:36px;height:36px;border-radius:50%;background:var(--bois-pale);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.val-txt h4{font-size:14px;font-weight:500;margin-bottom:3px;}.val-txt p{font-size:13px;color:var(--gris);line-height:1.6;}
+
+/* HORAIRES */
+#horaires{background:var(--charbon);padding:80px 48px;position:relative;overflow:hidden;}
+#horaires::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(196,147,90,.07) 0%,transparent 70%);}
+.horaires-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:64px;align-items:start;}
+.hor-label{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--bois-lt);margin-bottom:14px;}
+.hor-title{font-family:var(--serif);font-size:clamp(24px,3vw,38px);font-weight:700;line-height:1.15;color:var(--blanc);margin-bottom:32px;}
+.hor-title em{font-style:italic;color:var(--bois-lt);}
+.h-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:13.5px;}
+.h-row .jour{color:rgba(255,255,255,.55);}.h-row .heure{color:var(--blanc);}
+.h-row .ferme{color:rgba(255,255,255,.25);font-style:italic;}
+.h-row.today .jour,.h-row.today .heure{color:var(--bois-lt);}
+.h-row.today .jour{font-weight:500;}
+.hor-special{margin-top:16px;padding:12px 14px;background:rgba(196,147,90,.12);border:1px solid rgba(196,147,90,.25);border-radius:4px;font-size:13px;color:var(--bois-lt);}
+.hor-divider{background:rgba(255,255,255,.1);}
+.hc-num{font-family:var(--serif);font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--blanc);margin:10px 0 16px;}
+.hc-adr{font-size:14px;color:rgba(255,255,255,.45);line-height:1.9;margin-bottom:24px;}
+.hc-badge{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid rgba(196,147,90,.3);border-radius:3px;font-size:12px;color:var(--bois-lt);letter-spacing:.07em;margin-bottom:24px;}
+.hc-badge::before{content:'●';font-size:7px;animation:pulse 2s infinite;}
+
+/* CATALOGUE */
+#services{background:var(--gris-pale);}
+.cat-intro{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:64px;}
+.cat-grid{display:flex;flex-direction:column;gap:4px;}
+.cat-block{background:var(--blanc);border-radius:4px;overflow:hidden;}
+.cat-header{display:flex;align-items:center;gap:16px;padding:22px 28px;cursor:pointer;transition:background .2s;}
+.cat-header:hover{background:var(--bois-pale);}
+.cat-icon{font-size:22px;flex-shrink:0;width:36px;text-align:center;}
+.cat-hname{flex:1;font-family:var(--serif);font-size:19px;font-weight:700;color:var(--charbon);}
+.cat-subtitle{font-size:12px;color:var(--gris);margin-top:2px;}
+.cat-toggle{font-size:12px;color:var(--bois-lt);width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bois-lt);display:flex;align-items:center;justify-content:center;transition:transform .3s,background .2s;flex-shrink:0;}
+.cat-block.open .cat-toggle{transform:rotate(45deg);background:var(--bois-lt);color:var(--blanc);}
+.cat-body{display:none;padding:0 28px 28px;border-top:1px solid var(--bois-pale);}
+.cat-block.open .cat-body{display:block;}
+.sub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:20px;}
+.sub-card{background:var(--bois-pale);border-radius:4px;padding:16px 18px;}
+.sub-title{font-size:13px;font-weight:500;color:var(--bois);margin-bottom:6px;}
+.sub-tags{display:flex;flex-wrap:wrap;gap:5px;}
+.sub-tag{font-size:11px;padding:3px 8px;border-radius:2px;background:rgba(255,255,255,.7);color:var(--bois-mid);}
+.cat-block.eco .cat-header{background:var(--vert-pale);}
+.cat-block.eco .cat-hname{color:var(--vert);}
+.cat-block.eco .cat-toggle{border-color:var(--vert-lt);color:var(--vert-lt);}
+.cat-block.eco.open .cat-toggle{background:var(--vert-lt);}
+.cat-block.eco .sub-card{background:var(--vert-pale);}
+.cat-block.eco .sub-title{color:var(--vert);}
+.cat-block.eco .sub-tag{background:rgba(255,255,255,.8);color:var(--vert);}
+.atelier-strip{background:var(--bois);border-radius:4px;padding:28px 32px;margin-top:4px;display:flex;align-items:center;gap:24px;}
+.atelier-strip .icon{font-size:32px;flex-shrink:0;}
+.atelier-strip h3{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:6px;}
+.atelier-strip p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6;}
+.atelier-strip .btn-link{color:var(--bois-lt);border-color:var(--bois-lt);margin-top:10px;}
+
+/* ECO */
+#eco{background:var(--vert);padding:80px 48px;position:relative;overflow:hidden;}
+#eco::after{content:'🌲';position:absolute;right:60px;top:50%;transform:translateY(-50%);font-size:130px;opacity:.05;}
+.eco-grid{display:grid;grid-template-columns:1fr 1px 1fr;gap:64px;align-items:center;}
+.eco-divider{background:rgba(255,255,255,.1);}
+.eco-label{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:14px;}
+.eco-title{font-family:var(--serif);font-size:clamp(24px,3vw,40px);font-weight:700;line-height:1.15;color:var(--blanc);margin-bottom:20px;}
+.eco-title em{font-style:italic;color:#8ed4a0;}
+.eco-text{font-size:15px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:24px;}
+.eco-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.eco-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:22px;}
+.eco-stat .sn{font-family:var(--serif);font-size:34px;font-weight:900;color:#8ed4a0;line-height:1;margin-bottom:5px;}
+.eco-stat .sl{font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.05em;line-height:1.5;}
+
+/* POUR QUI */
+#pourqui{background:var(--blanc);}
+.pq-intro{text-align:center;margin-bottom:56px;}
+.pq-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.pq-card{padding:52px 44px;transition:background .25s;}
+.pq-card:nth-child(1){background:var(--bois-pale);}
+.pq-card:nth-child(2){background:var(--vert-pale);}
+.pq-card:nth-child(1):hover{background:#ead9c5;}
+.pq-card:nth-child(2):hover{background:#cde3d3;}
+.pq-num{font-family:var(--serif);font-size:72px;font-weight:900;line-height:1;color:rgba(0,0,0,.05);margin-bottom:-16px;}
+.pq-title{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:14px;}
+.pq-card:nth-child(1) .pq-title{color:var(--bois);}
+.pq-card:nth-child(2) .pq-title{color:var(--vert);}
+.pq-desc{font-size:14px;color:var(--gris);line-height:1.8;margin-bottom:24px;max-width:360px;}
+.pq-list{display:flex;flex-direction:column;gap:7px;margin-bottom:32px;}
+.pq-list li{font-size:13px;color:var(--charbon);padding-left:16px;position:relative;}
+.pq-list li::before{content:'→';position:absolute;left:0;color:var(--bois-lt);font-size:11px;}
+.pq-card:nth-child(2) .pq-list li::before{color:var(--vert-lt);}
+.pq-card:nth-child(2) .btn-link{color:var(--vert);border-color:var(--vert-lt);}
+
+/* CONTACT */
+#contact{background:var(--gris-pale);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;}
+.contact-form{background:var(--blanc);padding:44px;border-radius:4px;}
+.form-title{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:6px;}
+.form-sub{font-size:13px;color:var(--gris);margin-bottom:28px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--gris);margin-bottom:7px;}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid #E0D5C5;border-radius:3px;padding:11px 14px;font-family:var(--sans);font-size:14px;color:var(--charbon);background:var(--blanc);outline:none;transition:border-color .2s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--bois-lt);}
+.field textarea{height:110px;resize:vertical;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.btn-submit{width:100%;background:var(--bois);color:var(--blanc);border:none;cursor:pointer;padding:14px;border-radius:3px;font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;transition:background .2s;margin-top:6px;}
+.btn-submit:hover{background:var(--bois-mid);}
+.ci-block{margin-bottom:32px;}
+.ci-label{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--bois-lt);margin-bottom:7px;}
+.ci-val{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--charbon);}
+.ci-sub{font-size:13px;color:var(--gris);margin-top:4px;line-height:1.7;}
+.map-wrap{width:100%;aspect-ratio:4/3;border-radius:4px;overflow:hidden;margin-top:28px;}
+.map-wrap iframe{width:100%;height:100%;border:none;}
+
+/* FOOTER */
+footer{background:var(--charbon);padding:64px 48px 36px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:28px;}
+.footer-logo{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:14px;}
+.footer-logo span{color:var(--bois-lt);}
+.footer-about{font-size:13px;color:rgba(255,255,255,.37);line-height:1.85;}
+.fc h5{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--bois-lt);margin-bottom:14px;}
+.fc a{display:block;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:9px;transition:color .2s;}
+.fc a:hover{color:var(--blanc);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,.22);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{to{opacity:1;}}
+@keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:.2;}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .65s var(--ease),transform .65s var(--ease);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:0 20px;}
+  .nav-center{display:none;}
+  .nav-right .nav-cta{display:none;}
+  .nav-burger{display:flex;}
+  .section,.section-alt{padding:64px 24px;}
+  #horaires,#eco{padding:64px 24px;}
+  #alerte-band{padding:10px 40px 10px 24px;font-size:12px;}
+  footer{padding:48px 24px 32px;}
+  .apropos-grid,.horaires-grid,.eco-grid,.cat-intro,.contact-grid,.footer-grid,.pq-grid{grid-template-columns:1fr;gap:36px;}
+  .hor-divider,.eco-divider{display:none;}
+  .apropos-badge{right:0;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:580px){
+  .field-row{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .sub-grid{grid-template-columns:1fr;}
+  .eco-stats{grid-template-columns:1fr;}
+  .pq-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── BANDEAU ALERTE (injecté par JS) ──────────────────────── -->
+<div id="alerte-band">
+  <span id="alerte-texte"></span>
+  <a id="alerte-lien" style="display:none"></a>
+  <button class="alerte-close" onclick="closeAlerte()">✕</button>
+</div>
+
+<!-- ── POPUP (injecté par JS) ────────────────────────────────── -->
+<div id="popup-overlay" onclick="closePopupOutside(event)">
+  <div class="popup-box">
+    <button class="popup-x" onclick="closePopup()">✕</button>
+    <div class="popup-header" id="popup-header">
+      <div class="popup-tag" id="popup-tag"></div>
+      <h2 class="popup-title" id="popup-title"></h2>
+      <img id="popup-img" style="display:none" alt="">
+    </div>
+    <div class="popup-body">
+      <p class="popup-text" id="popup-text"></p>
+      <a class="popup-btn" id="popup-btn" style="display:none"></a>
+      <span class="popup-close-btn" onclick="closePopup()">Non merci</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <a href="#accueil" class="nav-logo">CHARRIERE <span>Bois</span></a>
+  <div class="nav-center">
+    <a href="#apropos">Notre histoire</a>
+    <div class="nav-drop">
+      <a href="#services">Nos produits</a>
+      <div class="drop-menu">
+        <div class="drop-section">Construction</div>
+        <a href="#services">🏗️ Bois de charpente</a>
+        <a href="#services">🌳 Bois d'extérieur</a>
+        <a href="#services">🪵 Bois de menuiserie</a>
+        <a href="#services">⬛ Panneaux</a>
+        <div class="drop-section">Finition & Spécialités</div>
+        <a href="#services">🎨 Décoration intérieure</a>
+        <a href="#services">🔩 Quincaillerie</a>
+        <a href="#services">🌿 Isolation écologique</a>
+        <a href="#services">⚙️ Refente & Rabotage</a>
+      </div>
+    </div>
+    <a href="#horaires">Horaires</a>
+    <a href="#pourqui">Pour qui ?</a>
+    <a href="#eco">Engagements</a>
+  </div>
+  <div class="nav-right">
+    <a href="#contact" class="nav-cta">Nous contacter</a>
+    <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mob-section">Navigation</div>
+  <a href="#accueil" onclick="closeMob()">Accueil</a>
+  <a href="#apropos" onclick="closeMob()">Notre histoire</a>
+  <a href="#horaires" onclick="closeMob()">Horaires & accès</a>
+  <a href="#pourqui" onclick="closeMob()">Pour qui ?</a>
+  <a href="#eco" onclick="closeMob()">Engagements éco</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+  <div class="mob-section">Nos produits</div>
+  <a href="#services" onclick="closeMob()">🏗️ Bois de charpente</a>
+  <a href="#services" onclick="closeMob()">🌳 Bois d'extérieur</a>
+  <a href="#services" onclick="closeMob()">🪵 Bois de menuiserie</a>
+  <a href="#services" onclick="closeMob()">⬛ Panneaux</a>
+  <a href="#services" onclick="closeMob()">🎨 Décoration intérieure</a>
+  <a href="#services" onclick="closeMob()">🔩 Quincaillerie</a>
+  <a href="#services" onclick="closeMob()">🌿 Isolation écologique</a>
+  <a href="#services" onclick="closeMob()">⚙️ Refente & Rabotage CNC</a>
+</div>
+
+<!-- ── HERO ──────────────────────────────────────────────────── -->
+<section id="accueil">
+  <video class="hero-video" id="hero-video" autoplay muted loop playsinline>
+    <!-- src injecté par JS depuis hero.json -->
+  </video>
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" id="hero-eyebrow">Négoce Bois · Marsac-sur-l'Isle · Dordogne</p>
+    <h1 class="hero-title">
+      <span id="hero-titre1">Bienvenue chez</span><br>
+      <em id="hero-titre2">Charrière Bois</em>
+    </h1>
+    <div class="hero-since">Votre atelier depuis <b id="hero-annee">1997</b>&nbsp;— passion du bois en Périgord</div>
+    <p class="hero-sub" id="hero-sub">Bois de charpente, panneaux, isolation écologique & quincaillerie.<br>Conseil expert, découpe sur mesure, esprit familial.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary" id="hero-btn1">Découvrir nos produits</a>
+      <a href="#contact" class="btn-outline" id="hero-btn2">Nous trouver</a>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('apropos').scrollIntoView({behavior:'smooth'})">
+    <span>Voir plus</span><div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── À PROPOS ──────────────────────────────────────────────── -->
+<section class="section" id="apropos">
+  <div class="container">
+    <div class="apropos-grid">
+      <div class="apropos-img reveal">
+        <div class="img-frame" id="apropos-img-frame" style="min-height:420px;">📷 Photo à insérer</div>
+        <div class="apropos-badge">
+          <div class="badge-num" id="apropos-annees">27</div>
+          <div class="badge-txt">ans d'expertise<br>en Périgord</div>
+        </div>
+      </div>
+      <div style="padding-left:16px;">
+        <p class="label reveal">Notre histoire</p>
+        <h2 class="h2 reveal" id="apropos-titre">Une entreprise <em>familiale</em>,<br>ancrée dans son territoire</h2>
+        <p class="lead reveal" id="apropos-texte">Depuis 1997, la famille Charrière met son savoir-faire au service des artisans et des particuliers du Périgord.</p>
+        <div class="val-list" id="val-list"></div>
+        <a href="equipe.html" class="btn-link reveal">Découvrir l'équipe & l'atelier</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HORAIRES ───────────────────────────────────────────────── -->
+<section id="horaires">
+  <div class="container">
+    <div class="horaires-grid">
+      <div>
+        <p class="hor-label reveal">Quand nous rendre visite</p>
+        <h2 class="hor-title reveal">Nos <em>horaires</em><br>d'ouverture</h2>
+        <div class="hor-table reveal" id="hor-table">
+          <!-- injecté par JS -->
+        </div>
+        <div id="hor-special" style="display:none"></div>
+      </div>
+      <div class="hor-divider"></div>
+      <div class="reveal">
+        <p class="hor-label">Nous joindre</p>
+        <div class="hc-num" id="contact-tel">05 53 07 94 53</div>
+        <p class="hc-adr" id="contact-adr">8 Rue de la Prairie<br>24430 Marsac-sur-l'Isle<br>Dordogne (24)</p>
+        <div class="hc-badge">Ouvert aujourd'hui</div>
+        <br><br>
+        <a href="#contact" class="btn-link" style="color:var(--bois-lt);border-color:var(--bois-lt);">Envoyer un message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CATALOGUE ─────────────────────────────────────────────── -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="cat-intro">
+      <div>
+        <p class="label reveal">Notre catalogue complet</p>
+        <h2 class="h2 reveal">Tout ce qu'il vous faut,<br><em>en stock</em> à Marsac</h2>
+      </div>
+      <div><p class="lead reveal">Du liteau à l'isolant en passant par la découpe CNC — notre stock couvre l'intégralité de vos besoins. Cliquez sur chaque gamme pour voir le détail.</p></div>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-block reveal" id="cat1"><div class="cat-header" onclick="toggleCat('cat1')"><div class="cat-icon">🏗️</div><div><div class="cat-hname">Bois de charpente</div><div class="cat-subtitle">Structure · toiture · plancher · ossature bois</div></div><div class="cat-toggle">+</div></div><div class="cat-body"><div class="sub-grid"><div class="sub-card"><div class="sub-title">Liteau · Volige · Coffrage</div><div class="sub-tags"><span class="sub-tag">Liteau 27×40</span><span class="sub-tag">Liteau 18×40</span><span class="sub-tag">Volige sapin</span><span class="sub-tag">Panneau coffrage</span></div></div><div class="sub-card"><div class="sub-title">Chevron · Solivette · Bastaing</div><div class="sub-tags"><span class="sub-tag">Chevron 63×75</span><span class="sub-tag">Chevron 63×100</span><span class="sub-tag">Solivette 38×63</span><span class="sub-tag">Bastaing 50×175</span></div></div><div class="sub-card"><div class="sub-title">Madrier · Pièce · Poteau</div><div class="sub-tags"><span class="sub-tag">Madrier 63×225</span><span class="sub-tag">Pièce équarrie</span><span class="sub-tag">Poteau 100×100</span><span class="sub-tag">Poteau 120×120</span></div></div><div class="sub-card"><div class="sub-title">Contrecollé · Poutre spéciale</div><div class="sub-tags"><span class="sub-tag">KVH contrecollé</span><span class="sub-tag">LVL</span><span class="sub-tag">Poutre lamellée</span><span class="sub-tag">Sur devis</span></div></div></div></div></div>
+      <div class="cat-block reveal" id="cat2"><div class="cat-header" onclick="toggleCat('cat2')"><div class="cat-icon">🌳</div><div><div class="cat-hname">Bois d'extérieur</div><div class="cat-subtitle">Terrasse · bardage · claustra · classe IV</div></div><div class="cat-toggle">+</div></div><div class="cat-body"><div class="sub-grid"><div class="sub-card"><div class="sub-title">Terrasse · Bois classe IV</div><div class="sub-tags"><span class="sub-tag">Pin traité autoclave</span><span class="sub-tag">Douglas naturel</span><span class="sub-tag">Exotique IPE</span><span class="sub-tag">Lames 27×145</span><span class="sub-tag">Lames 21×120</span></div></div><div class="sub-card"><div class="sub-title">Bardage · Claustra · Paravent</div><div class="sub-tags"><span class="sub-tag">Bardage sapin</span><span class="sub-tag">Bardage épicéa</span><span class="sub-tag">Bardage Douglas</span><span class="sub-tag">Claustra</span><span class="sub-tag">Lame de clôture</span></div></div></div></div></div>
+      <div class="cat-block reveal" id="cat3"><div class="cat-header" onclick="toggleCat('cat3')"><div class="cat-icon">🪵</div><div><div class="cat-hname">Bois pour la menuiserie</div><div class="cat-subtitle">Sapin du Nord · Chêne · Bois exotiques</div></div><div class="cat-toggle">+</div></div><div class="cat-body"><div class="sub-grid"><div class="sub-card"><div class="sub-title">Résineux</div><div class="sub-tags"><span class="sub-tag">Sapin du Nord</span><span class="sub-tag">Épicéa</span><span class="sub-tag">Pin sylvestre</span></div></div><div class="sub-card"><div class="sub-title">Feuillus</div><div class="sub-tags"><span class="sub-tag">Chêne massif</span><span class="sub-tag">Hêtre</span><span class="sub-tag">Frêne</span></div></div><div class="sub-card"><div class="sub-title">Bois exotiques</div><div class="sub-tags"><span class="sub-tag">Iroko</span><span class="sub-tag">Sipo</span><span class="sub-tag">Okoumé</span><span class="sub-tag">Movingui</span></div></div></div></div></div>
+      <div class="cat-block reveal" id="cat4"><div class="cat-header" onclick="toggleCat('cat4')"><div class="cat-icon">⬛</div><div><div class="cat-hname">Panneaux</div><div class="cat-subtitle">Contreplaqué · OSB · Médium · Mélaminé · Plan de travail</div></div><div class="cat-toggle">+</div></div><div class="cat-body"><div class="sub-grid"><div class="sub-card"><div class="sub-title">Contreplaqué</div><div class="sub-tags"><span class="sub-tag">Intérieur NF CTBI</span><span class="sub-tag">Extérieur NF CTBX</span><span class="sub-tag">Filmé coffrage</span><span class="sub-tag">Antidérapant</span><span class="sub-tag">Okoumé essence fine</span></div></div><div class="sub-card"><div class="sub-title">OSB & Dalles</div><div class="sub-tags"><span class="sub-tag">OSB 3 — 9/12/15/18/22mm</span><span class="sub-tag">Dalle plancher CTBS</span><span class="sub-tag">Dalle plancher CTBH</span></div></div><div class="sub-card"><div class="sub-title">Médium · MDF</div><div class="sub-tags"><span class="sub-tag">MDF standard</span><span class="sub-tag">MDF hydro</span><span class="sub-tag">9/12/16/19/22mm</span></div></div><div class="sub-card"><div class="sub-title">Mélaminé</div><div class="sub-tags"><span class="sub-tag">Blanc mat/brillant</span><span class="sub-tag">Décors bois</span><span class="sub-tag">Décors unis</span><span class="sub-tag">Double face</span></div></div><div class="sub-card"><div class="sub-title">Plans de travail</div><div class="sub-tags"><span class="sub-tag">Postformé stratifié</span><span class="sub-tag">Bois massif</span><span class="sub-tag">Hêtre · Chêne · Pin</span></div></div><div class="sub-card"><div class="sub-title">Lamellé-collé & Multiplis</div><div class="sub-tags"><span class="sub-tag">Lamellé-collé</span><span class="sub-tag">Contrecollé</span><span class="sub-tag">Multiplis Tilly</span></div></div></div></div></div>
+      <div class="cat-block reveal" id="cat5"><div class="cat-header" onclick="toggleCat('cat5')"><div class="cat-icon">🎨</div><div><div class="cat-hname">Décoration intérieure</div><div class="cat-subtitle">Lambris · Parquet · Moulures · Lasures · Peintures</div></div><div class="cat-toggle">+</div></div><div class="cat-body"><div class="sub-grid"><div class="sub-card"><div class="sub-title">Lambris</div><div class="sub-tags"><span class="sub-tag">Lambris sapin</span><span class="sub-tag">Lambris chêne</span><span class="sub-tag">Lambris pin noueux</span><span class="sub-tag">Conseil de pose</span></div></div><div class="sub-card"><div class="sub-title">Parquets · Plinthes</div><div class="sub-tags"><span class="sub-tag">Parquet massif</span><span class="sub-tag">Parquet contrecollé</span><span class="sub-tag">Plinthes assorties</span></div></div><div class="sub-card"><div class="sub-title">Dressing · Façades placard</div><div class="sub-tags"><span class="sub-tag">Façades mélaminées</span><span class="sub-tag">Façades miroir</span></div></div><div class="sub-card"><div class="sub-title">Moulures · Frises</div><div class="sub-tags"><span class="sub-tag">Cimaises</span><span class="sub-tag">Quarts-de-rond</span><span class="sub-tag">Frises décoratives</span><span class="sub-tag">Chambranles</span></div></div><div class="sub-card"><div class="sub-title">Lasures · Peintures · Vitrificateurs</div><div class="sub-tags"><span class="sub-tag">Lasure intérieure</span><span class="sub-tag">Lasure extérieure</span><span class="sub-tag">Peinture Tassili éco</span><span class="sub-tag">1000 coloris</span><span class="sub-tag">Vitrificateur parquet</span></div></div></div><p style="font-size:13px;color:var(--gris);margin-top:14px;">✦ Peinture Tassili — Prix Pierre Potier 2008 pour l'innovation en chimie durable.</p></div></div>
+      <div class="cat-block reveal" id="cat6"><div class="cat-header" onclick="toggleCat('cat6')"><div class="cat-icon">🔩</div><div><div class="cat-hname">Quincaillerie</div><div class="cat-subtitle">Ameublement · Bâtiment · Visserie · Fixation charpente</div></div><div class="cat-toggle">+</div></div><div class="cat-body"><div class="sub-grid"><div class="sub-card"><div class="sub-title">Visserie · Chevilles · Clouterie</div><div class="sub-tags"><span class="sub-tag">Vis à bois</span><span class="sub-tag">Vis inox</span><span class="sub-tag">Chevilles bois</span><span class="sub-tag">Clous en bande</span><span class="sub-tag">Pointes</span></div></div><div class="sub-card"><div class="sub-title">Colles · Bandes de chant</div><div class="sub-tags"><span class="sub-tag">Colle PVA</span><span class="sub-tag">Colle contact</span><span class="sub-tag">Colle époxy</span><span class="sub-tag">Bande de chant ABS</span></div></div><div class="sub-card"><div class="sub-title">Serrures · Coulisses · Charnières</div><div class="sub-tags"><span class="sub-tag">Serrures encastrées</span><span class="sub-tag">Coulisses tiroir</span><span class="sub-tag">Charnières</span><span class="sub-tag">Roulettes</span></div></div><div class="sub-card"><div class="sub-title">Quincaillerie du bâtiment</div><div class="sub-tags"><span class="sub-tag">Penture</span><span class="sub-tag">Équerres Simpson</span><span class="sub-tag">Fixation charpente</span><span class="sub-tag">Sabots de poteaux</span><span class="sub-tag">Tire-fonds</span></div></div></div></div></div>
+      <div class="cat-block eco reveal" id="cat7"><div class="cat-header" onclick="toggleCat('cat7')"><div class="cat-icon">🌿</div><div><div class="cat-hname">Isolation écologique</div><div class="cat-subtitle">Matériaux biosourcés · Confort thermique & acoustique</div></div><div class="cat-toggle">+</div></div><div class="cat-body"><div class="sub-grid"><div class="sub-card"><div class="sub-title">Fibre de bois</div><div class="sub-tags"><span class="sub-tag">Steico Flex</span><span class="sub-tag">Panneau rigide</span><span class="sub-tag">λ = 0.038</span><span class="sub-tag">Euroclasse E</span><span class="sub-tag">Recyclable</span></div></div><div class="sub-card"><div class="sub-title">Ouate de cellulose</div><div class="sub-tags"><span class="sub-tag">En vrac projetée</span><span class="sub-tag">En panneau</span><span class="sub-tag">Combles perdus</span></div></div><div class="sub-card"><div class="sub-title">Laine de chanvre</div><div class="sub-tags"><span class="sub-tag">Rouleaux</span><span class="sub-tag">Panneaux semi-rigides</span><span class="sub-tag">Sans traitement chimique</span></div></div><div class="sub-card"><div class="sub-title">Liège</div><div class="sub-tags"><span class="sub-tag">Liège expansé</span><span class="sub-tag">Liège aggloméré</span><span class="sub-tag">Thermique & acoustique</span></div></div></div></div></div>
+      <div class="atelier-strip reveal"><div class="icon">⚙️</div><div><h3>Atelier : Refente & Rabotage · Découpe CNC sur mesure</h3><p>Scie à ruban, raboteuse, dégauchisseuse et scie à commande numérique — nous préparons vos sections à vos cotes exactes. Vous gagnez du temps sur chantier.</p><a href="#contact" class="btn-link">Demander un devis atelier</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ECO ────────────────────────────────────────────────────── -->
+<section id="eco">
+  <div class="container">
+    <div class="eco-grid">
+      <div><p class="eco-label reveal">Notre engagement</p><h2 class="eco-title reveal">Partenaires de la <em>forêt</em>,<br>pas seulement vendeurs de bois</h2><p class="eco-text reveal">En partenariat avec l'association <strong style="color:#8ed4a0">Cœur de Forêt</strong>, nous parrainons 100 arbres sur une parcelle en Dordogne — projet France Sud-Ouest. Chaque achat chez Charrière contribue à un négoce du bois responsable.</p><a href="#contact" class="btn-link reveal" style="color:#8ed4a0;border-color:#4a9e6a;">En savoir plus</a></div>
+      <div class="eco-divider"></div>
+      <div class="eco-stats reveal"><div class="eco-stat"><div class="sn">100</div><div class="sl">arbres parrainés<br>en Dordogne</div></div><div class="eco-stat"><div class="sn">27</div><div class="sl">ans d'expérience<br>du négoce bois</div></div><div class="eco-stat"><div class="sn">4</div><div class="sl">isolants biosourcés<br>en stock permanent</div></div><div class="eco-stat"><div class="sn">1</div><div class="sl">atelier CNC<br>de découpe précise</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── POUR QUI ───────────────────────────────────────────────── -->
+<section class="section" id="pourqui">
+  <div class="container">
+    <div class="pq-intro"><p class="label reveal" style="justify-content:center;">Notre clientèle</p><h2 class="h2 reveal" style="text-align:center;">Nous accompagnons <em>chacun</em><br>selon ses besoins</h2></div>
+    <div class="pq-grid">
+      <div class="pq-card reveal"><div class="pq-num">01</div><h3 class="pq-title">Artisans & Professionnels</h3><p class="pq-desc">Charpentiers, menuisiers, maçons — nous sommes votre fournisseur de confiance. Nous ne faisons pas le travail de l'artisan, nous lui faisons gagner du temps.</p><ul class="pq-list"><li>Stock disponible immédiatement</li><li>Découpe, rabotage et refente à vos cotes</li><li>Conseils techniques sur les essences et sections</li><li>Réseau de recommandations d'artisans partenaires</li></ul><a href="#contact" class="btn-link">Parler à un expert</a></div>
+      <div class="pq-card reveal d1"><div class="pq-num">02</div><h3 class="pq-title">Particuliers & DIY</h3><p class="pq-desc">Vous rénovez ou construisez ? Nos équipes vous guident pas à pas, sans jargon, pour que votre projet soit une vraie réussite.</p><ul class="pq-list"><li>Conseil personnalisé gratuit</li><li>Matériaux au détail comme en grande quantité</li><li>Exemples et inspiration sur place</li><li>Orientation vers des artisans de confiance</li></ul><a href="#contact" class="btn-link">Nous poser une question</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ───────────────────────────────────────────────── -->
+<section class="section" id="contact">
+  <div class="container">
+    <p class="label reveal">Venir nous voir ou nous écrire</p>
+    <h2 class="h2 reveal" style="margin-bottom:48px;">Prenons <em>contact</em></h2>
+    <div class="contact-grid">
+      <div class="contact-form reveal">
+        <h3 class="form-title">Une question, un projet ?</h3>
+        <p class="form-sub">Remplissez ce formulaire, nous vous répondons sous 24h ouvrées.</p>
+        <form id="contact-form" method="POST">
+          <div class="field-row">
+            <div class="field"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Jean"></div>
+            <div class="field"><label>Nom *</label><input type="text" name="nom" required placeholder="Dupont"></div>
+          </div>
+          <div class="field"><label>Email *</label><input type="email" name="email" required placeholder="jean.dupont@email.fr"></div>
+          <div class="field"><label>Téléphone</label><input type="tel" name="tel" placeholder="06 00 00 00 00"></div>
+          <div class="field"><label>Vous êtes</label><select name="profil"><option value="">— Choisissez —</option><option>Particulier</option><option>Artisan / Professionnel</option><option>Entreprise</option></select></div>
+          <div class="field"><label>Sujet</label><select name="sujet"><option value="">— Choisissez —</option><option>Bois de charpente</option><option>Bois d'extérieur / terrasse</option><option>Panneaux</option><option>Isolation écologique</option><option>Décoration intérieure</option><option>Quincaillerie</option><option>Découpe / rabotage / refente</option><option>Autre demande</option></select></div>
+          <div class="field"><label>Message *</label><textarea name="message" required placeholder="Décrivez votre projet..."></textarea></div>
+          <button type="submit" class="btn-submit">Envoyer le message</button>
+        </form>
+      </div>
+      <div class="reveal d1">
+        <div class="ci-block"><p class="ci-label">Téléphone</p><p class="ci-val" id="footer-tel">05 53 07 94 53</p><p class="ci-sub" id="footer-horaires-txt">Lundi – Vendredi : 8h – 12h · 14h – 18h<br>Samedi : 8h – 12h</p></div>
+        <div class="ci-block"><p class="ci-label">Adresse</p><p class="ci-val" style="font-size:18px;" id="footer-adr-rue">8 Rue de la Prairie</p><p class="ci-sub" id="footer-adr-ville">24430 Marsac-sur-l'Isle<br>Dordogne (24)</p></div>
+        <div class="ci-block"><p class="ci-label">Email</p><p class="ci-val" style="font-size:17px;color:var(--bois-mid)" id="footer-email">contact@charrierebois.com</p></div>
+        <div class="ci-block"><p class="ci-label">Retrouvez-nous sur</p><a id="footer-facebook" href="https://www.facebook.com/CHARRIEREBOIS/" target="_blank" class="btn-link">Facebook CHARRIERE Bois</a></div>
+        <div class="map-wrap"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d89970.67262381261!2d0.5332685188201848!3d45.19552636624383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47ff76e8189f1769%3A0x5210d4f011eb9614!2sCharri%C3%A8re%20bois%20SARL!5e0!3m2!1sfr!2sfr!4v1779274115239!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-logo">CHARRIERE <span>Bois</span></div><p class="footer-about">Négoce bois, panneaux et isolation écologique depuis 1997. Votre partenaire de confiance en Dordogne pour tous vos projets de construction et d'aménagement bois.</p></div>
+      <div class="fc"><h5>Navigation</h5><a href="#accueil">Accueil</a><a href="#apropos">Notre histoire</a><a href="#horaires">Horaires</a><a href="#services">Nos produits</a><a href="#pourqui">Pour qui ?</a><a href="#eco">Engagements</a><a href="#contact">Contact</a></div>
+      <div class="fc"><h5>Nos gammes</h5><a href="#services">Bois de charpente</a><a href="#services">Bois d'extérieur</a><a href="#services">Panneaux</a><a href="#services">Isolation éco</a><a href="#services">Décoration</a><a href="#services">Quincaillerie</a><a href="#services">Atelier CNC</a></div>
+      <div class="fc"><h5>Informations</h5><a id="ft-tel" href="tel:0553079453">05 53 07 94 53</a><a id="ft-email" href="mailto:contact@charrierebois.com">contact@charrierebois.com</a><a href="equipe.html">L'équipe & l'atelier</a><a id="ft-facebook" href="https://www.facebook.com/CHARRIEREBOIS/" target="_blank">Facebook</a><a href="admin/index.html" style="opacity:.3;font-size:11px;">Administration ↗</a></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 CHARRIERE Bois SARL — Tous droits réservés</p><p>Partenaire <a href="https://coeursdeforet.com" target="_blank" style="color:var(--vert-lt);">Cœur de Forêt</a></p></div>
+  </div>
+</footer>
+
+<script>
+// ── CHARGEMENT DES DONNÉES CMS ─────────────────────────────────
+async function loadJSON(path) {
+  try {
+    const r = await fetch(path);
+    if (!r.ok) return null;
+    return r.json();
+  } catch { return null; }
+}
+
+async function initSite() {
+  const [infos, reseaux, horaires, hero, apropos, popup, alerte] = await Promise.all([
+    loadJSON('content/infos.json'),
+    loadJSON('content/reseaux.json'),
+    loadJSON('content/horaires.json'),
+    loadJSON('content/hero.json'),
+    loadJSON('content/apropos.json'),
+    loadJSON('content/popup.json'),
+    loadJSON('content/alerte.json'),
+  ]);
+
+  // ── INFOS CONTACT ────────────────────────────────────────────
+  if (infos) {
+    const tel = infos.telephone || '';
+    const email = infos.email_affiche || '';
+    const rue = infos.adresse_rue || '';
+    const ville = infos.adresse_ville || '';
+    const dept = infos.adresse_dept || '';
+
+    setText('contact-tel', tel);
+    setText('footer-tel', tel);
+    setText('footer-email', email);
+    setText('footer-adr-rue', rue);
+    setText('footer-adr-ville', ville + (dept ? '<br>' + dept : ''));
+    setText('footer-email', email);
+    document.getElementById('footer-email').textContent = email;
+    document.getElementById('ft-tel').href = 'tel:' + tel.replace(/\s/g,'');
+    document.getElementById('ft-email').href = 'mailto:' + email;
+
+    const adrEl = document.getElementById('contact-adr');
+    if (adrEl) adrEl.innerHTML = rue + '<br>' + ville + (dept ? '<br>' + dept : '');
+
+    // Formspree — si email défini, construire l'URL
+    const emailForm = infos.email_formulaire;
+    if (emailForm) {
+      // L'action Formspree est configurée dans Netlify Forms ou Formspree
+      // On ajoute un champ caché _replyto
+      const form = document.getElementById('contact-form');
+      if (form) {
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden'; hidden.name = '_replyto'; hidden.value = emailForm;
+        form.appendChild(hidden);
+      }
+    }
+  }
+
+  // ── RÉSEAUX SOCIAUX ──────────────────────────────────────────
+  if (reseaux) {
+    if (reseaux.facebook) {
+      const fbs = document.querySelectorAll('#footer-facebook, #ft-facebook');
+      fbs.forEach(el => { el.href = reseaux.facebook; el.style.display = ''; });
+    }
+  }
+
+  // ── HORAIRES ────────────────────────────────────────────────
+  if (horaires) {
+    const jours = ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
+    const labels = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+    const todayIdx = new Date().getDay(); // 0=dim
+    const todayLabel = labels[todayIdx === 0 ? 6 : todayIdx - 1];
+    const table = document.getElementById('hor-table');
+    if (table) {
+      table.innerHTML = jours.map((j, i) => {
+        const val = horaires[j] || '';
+        const isFerme = val.toLowerCase().includes('ferm');
+        const isToday = labels[i] === todayLabel;
+        return `<div class="h-row${isToday?' today':''}">
+          <span class="jour">${labels[i]}</span>
+          <span class="heure${isFerme?' ferme':''}">${val}</span>
+        </div>`;
+      }).join('');
+    }
+    if (horaires.message_special) {
+      const sp = document.getElementById('hor-special');
+      if (sp) { sp.className = 'hor-special'; sp.textContent = horaires.message_special; sp.style.display = 'block'; }
+    }
+  }
+
+  // ── HERO ────────────────────────────────────────────────────
+  if (hero) {
+    if (hero.eyebrow) setText('hero-eyebrow', hero.eyebrow);
+    if (hero.titre_ligne1) setText('hero-titre1', hero.titre_ligne1);
+    if (hero.titre_ligne2) setText('hero-titre2', hero.titre_ligne2);
+    if (hero.annee) { document.getElementById('hero-annee').textContent = hero.annee; }
+    if (hero.sous_titre) {
+      const el = document.getElementById('hero-sub');
+      if (el) el.innerHTML = hero.sous_titre.replace(/\n/g,'<br>');
+    }
+    if (hero.btn1_texte) setText('hero-btn1', hero.btn1_texte);
+    if (hero.btn2_texte) setText('hero-btn2', hero.btn2_texte);
+    // Vidéo
+    const vid = document.getElementById('hero-video');
+    if (hero.video && vid) {
+      const src = document.createElement('source');
+      src.src = hero.video; src.type = 'video/mp4';
+      vid.appendChild(src); vid.load();
+    }
+    if (hero.poster && vid) vid.poster = hero.poster;
+  }
+
+  // ── À PROPOS ────────────────────────────────────────────────
+  if (apropos) {
+    if (apropos.annees) setText('apropos-annees', apropos.annees);
+    if (apropos.titre) {
+      const el = document.getElementById('apropos-titre');
+      if (el) el.innerHTML = apropos.titre;
+    }
+    if (apropos.texte) setText('apropos-texte', apropos.texte);
+    if (apropos.photo) {
+      const frame = document.getElementById('apropos-img-frame');
+      if (frame) {
+        frame.innerHTML = `<img src="${apropos.photo}" alt="CHARRIERE Bois" style="width:100%;height:100%;object-fit:cover;opacity:1;">`;
+      }
+    }
+    if (apropos.valeurs) {
+      const list = document.getElementById('val-list');
+      if (list) {
+        list.innerHTML = apropos.valeurs.map(v => `
+          <div class="val-item reveal">
+            <div class="val-icon">${v.icone}</div>
+            <div class="val-txt"><h4>${v.titre}</h4><p>${v.description}</p></div>
+          </div>`).join('');
+      }
+    }
+  }
+
+  // ── BANDEAU ALERTE ──────────────────────────────────────────
+  if (alerte && alerte.actif) {
+    const expired = alerte.date_fin && new Date(alerte.date_fin) < new Date();
+    if (!expired) {
+      const band = document.getElementById('alerte-band');
+      band.className = 'show ' + (alerte.type || 'info');
+      document.getElementById('alerte-texte').textContent = alerte.texte || '';
+      if (alerte.lien && alerte.lien_texte) {
+        const lien = document.getElementById('alerte-lien');
+        lien.href = alerte.lien;
+        lien.textContent = alerte.lien_texte;
+        lien.style.display = 'inline';
+      }
+      document.body.classList.add('has-alerte');
+    }
+  }
+
+  // ── POPUP ───────────────────────────────────────────────────
+  if (popup && popup.actif) {
+    const expired = popup.date_fin && new Date(popup.date_fin) < new Date();
+    const dismissed = sessionStorage.getItem('popup-dismissed');
+    if (!expired && !dismissed) {
+      const types = { info:'ℹ️ Information', promo:'🎉 Promotion', alerte:'⚠️ Information', evenement:'📅 Événement' };
+      const overlay = document.getElementById('popup-overlay');
+      const header = document.getElementById('popup-header');
+      const tag = document.getElementById('popup-tag');
+      const title = document.getElementById('popup-title');
+      const text = document.getElementById('popup-text');
+
+      header.className = 'popup-header ' + (popup.type || 'info');
+      tag.className = 'popup-tag ' + (popup.type || 'info');
+      tag.textContent = types[popup.type] || 'ℹ️ Information';
+      title.textContent = popup.titre || '';
+      text.textContent = popup.contenu || '';
+
+      if (popup.image) {
+        const img = document.getElementById('popup-img');
+        img.src = popup.image; img.style.display = 'block';
+      }
+      if (popup.btn_texte && popup.btn_lien) {
+        const btn = document.getElementById('popup-btn');
+        btn.textContent = popup.btn_texte;
+        btn.href = popup.btn_lien;
+        btn.style.display = 'inline-block';
+      }
+
+      setTimeout(() => overlay.classList.add('show'), 800);
+    }
+  }
+}
+
+// Helpers
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+function closeAlerte() {
+  document.getElementById('alerte-band').classList.remove('show');
+  document.body.classList.remove('has-alerte');
+}
+function closePopup() {
+  document.getElementById('popup-overlay').classList.remove('show');
+  sessionStorage.setItem('popup-dismissed','1');
+}
+function closePopupOutside(e) {
+  if (e.target === document.getElementById('popup-overlay')) closePopup();
+}
+
+// ── NAV ──────────────────────────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 50));
+
+const burger = document.getElementById('burger');
+const mob = document.getElementById('mobile-menu');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  mob.classList.toggle('open');
+  document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+});
+function closeMob() {
+  burger.classList.remove('open');
+  mob.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── CATALOGUE ACCORDION ──────────────────────────────────────
+function toggleCat(id) { document.getElementById(id).classList.toggle('open'); }
+
+// ── REVEAL SCROLL ────────────────────────────────────────────
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ── FORMULAIRE ───────────────────────────────────────────────
+const form = document.getElementById('contact-form');
+if (form) {
+  // Netlify Forms
+  form.setAttribute('data-netlify', 'true');
+  form.setAttribute('name', 'contact');
+  const netlifyInput = document.createElement('input');
+  netlifyInput.type = 'hidden'; netlifyInput.name = 'form-name'; netlifyInput.value = 'contact';
+  form.appendChild(netlifyInput);
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = 'Envoi…'; btn.disabled = true;
+    try {
+      const res = await fetch('/', { method:'POST', body: new URLSearchParams(new FormData(form)) });
+      if (res.ok) {
+        btn.textContent = '✓ Message envoyé !';
+        btn.style.background = 'var(--vert)';
+        form.reset();
+      } else throw new Error();
+    } catch {
+      btn.textContent = 'Erreur — réessayez';
+      btn.disabled = false;
+    }
+  });
+}
+
+// ── NETLIFY IDENTITY REDIRECT ────────────────────────────────
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('init', user => {
+    if (!user) {
+      window.netlifyIdentity.on('login', () => { document.location.href = '/admin/'; });
+    }
+  });
+}
+
+// ── INIT ─────────────────────────────────────────────────────
+initSite();
+</script>
+</body>
+</html>

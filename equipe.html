@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'équipe & l'atelier — CHARRIERE Bois · Marsac-sur-l'Isle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bois:#6B3D1E;--bois-mid:#8B5230;--bois-lt:#C4935A;--bois-pale:#F5EDE2;
+  --vert:#2D5A3D;--vert-lt:#4A8560;--vert-pale:#EAF2EC;
+  --charbon:#1C1C1B;--gris:#6B6B68;--gris-pale:#F4F2EE;--blanc:#FDFCFA;
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--blanc);color:var(--charbon);overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:66px;
+  background:rgba(28,28,27,.97);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--blanc);display:flex;align-items:center;gap:8px;}
+.nav-logo span{color:var(--bois-lt);}
+.nav-back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;color:rgba(255,255,255,.6);
+  transition:color .2s;
+}
+.nav-back:hover{color:var(--blanc);}
+.nav-back::before{content:'←';}
+.nav-cta{
+  background:var(--bois-lt);color:var(--blanc);
+  padding:8px 18px;border-radius:3px;
+  font-size:12.5px;font-weight:500;letter-spacing:.06em;
+  transition:background .2s;
+}
+.nav-cta:hover{background:var(--bois-mid);}
+
+/* ── HERO PAGE ───────────────────────────────────────── */
+.page-hero{
+  padding-top:66px;
+  position:relative;
+  background:var(--charbon);
+  overflow:hidden;
+  min-height:420px;
+  display:flex;align-items:flex-end;
+}
+.page-hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,#3d1f0a 0%,#6B3D1E 50%,#1a3828 100%);
+  opacity:.9;
+}
+.page-hero-grain{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;opacity:.5;pointer-events:none;
+}
+/* Decorative number */
+.page-hero-deco{
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:var(--serif);font-size:240px;font-weight:900;
+  color:rgba(255,255,255,.03);line-height:1;user-select:none;
+}
+.page-hero-content{
+  position:relative;z-index:2;
+  max-width:1160px;margin:0 auto;width:100%;
+  padding:64px 48px;
+}
+.breadcrumb{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;color:rgba(255,255,255,.35);
+  letter-spacing:.08em;margin-bottom:20px;
+}
+.breadcrumb a{transition:color .2s;}
+.breadcrumb a:hover{color:var(--bois-lt);}
+.breadcrumb span{opacity:.4;}
+.page-hero-eyebrow{
+  font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--bois-lt);margin-bottom:14px;
+}
+.page-hero-title{
+  font-family:var(--serif);
+  font-size:clamp(32px,5vw,64px);
+  font-weight:900;line-height:1.08;color:var(--blanc);
+  margin-bottom:20px;
+}
+.page-hero-title em{font-style:italic;color:var(--bois-lt);}
+.page-hero-sub{font-size:16px;color:rgba(255,255,255,.55);max-width:560px;line-height:1.75;}
+
+/* ── COMMUN ──────────────────────────────────────────── */
+.section{padding:88px 48px;}
+.section-alt{padding:88px 48px;background:var(--gris-pale);}
+.section-dark{padding:88px 48px;background:var(--charbon);}
+.container{max-width:1160px;margin:0 auto;}
+.label{
+  font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--bois-lt);margin-bottom:14px;
+  display:flex;align-items:center;gap:12px;
+}
+.label::before{content:'';display:block;width:24px;height:1px;background:currentColor;opacity:.6;}
+.h2{
+  font-family:var(--serif);font-size:clamp(26px,4vw,44px);
+  font-weight:700;line-height:1.14;color:var(--charbon);margin-bottom:20px;
+}
+.h2 em{font-style:italic;color:var(--bois-mid);}
+.h2-light{color:var(--blanc);}
+.h2-light em{color:var(--bois-lt);}
+.lead{font-size:16px;line-height:1.85;color:var(--gris);}
+.lead-light{color:rgba(255,255,255,.6);}
+.btn-back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:500;color:var(--bois-mid);
+  border-bottom:1px solid var(--bois-lt);padding-bottom:2px;
+  transition:gap .2s;
+}
+.btn-back::before{content:'←';}
+.btn-back:hover{gap:14px;}
+
+/* ── PHILOSOPHIE ─────────────────────────────────────── */
+#philosophie{}
+.philo-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.philo-img{
+  position:relative;
+  aspect-ratio:1/1;
+  background:var(--bois-pale);border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--bois-mid);opacity:.5;text-align:center;letter-spacing:.06em;
+  overflow:hidden;
+}
+.philo-img::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:40%;
+  background:linear-gradient(to top,rgba(107,61,30,.3),transparent);
+}
+/* Corner accent */
+.philo-img::before{
+  content:'';
+  position:absolute;top:-20px;right:-20px;
+  width:50%;height:50%;
+  border:1.5px solid var(--bois-lt);
+  border-radius:4px;opacity:.3;
+  z-index:-1;
+}
+
+.philo-text{}
+.philo-quote{
+  border-left:3px solid var(--bois-lt);
+  padding:18px 24px;
+  background:var(--bois-pale);
+  border-radius:0 4px 4px 0;
+  margin:28px 0;
+}
+.philo-quote p{
+  font-family:var(--serif);font-size:18px;font-style:italic;
+  color:var(--bois);line-height:1.7;
+}
+.philo-quote cite{
+  display:block;margin-top:10px;
+  font-size:12px;color:var(--bois-mid);letter-spacing:.08em;font-style:normal;
+}
+.philo-values{display:flex;flex-direction:column;gap:16px;margin-top:28px;}
+.philo-val{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:16px 18px;border-radius:4px;
+  background:var(--gris-pale);
+  border-left:3px solid transparent;
+  transition:border-color .2s,background .2s;
+}
+.philo-val:hover{border-left-color:var(--bois-lt);background:var(--bois-pale);}
+.philo-val-icon{
+  font-size:20px;width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--blanc);border-radius:50%;flex-shrink:0;
+}
+.philo-val-txt h4{font-size:14px;font-weight:500;margin-bottom:3px;}
+.philo-val-txt p{font-size:13px;color:var(--gris);line-height:1.6;}
+
+/* ── ÉQUIPE ──────────────────────────────────────────── */
+#equipe{background:var(--gris-pale);}
+.team-intro{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:60px;}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+
+.team-card{
+  background:var(--blanc);border-radius:4px;overflow:hidden;
+  transition:transform .25s var(--ease),box-shadow .25s;
+}
+.team-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(107,61,30,.1);}
+.team-photo{
+  width:100%;aspect-ratio:3/4;
+  background:var(--bois-pale);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--bois-mid);opacity:.45;
+  text-align:center;letter-spacing:.05em;
+  position:relative;overflow:hidden;
+}
+/* Photo placeholder graphic */
+.team-photo svg{opacity:.2;}
+.team-photo-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  height:35%;
+  background:linear-gradient(to top,rgba(107,61,30,.25),transparent);
+}
+.team-info{padding:20px 20px 22px;}
+.team-name{
+  font-family:var(--serif);font-size:17px;font-weight:700;
+  color:var(--charbon);margin-bottom:4px;
+}
+.team-role{
+  font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--bois-lt);margin-bottom:10px;
+}
+.team-desc{font-size:12.5px;color:var(--gris);line-height:1.65;}
+
+/* Carte "rejoindre" */
+.team-card.join{
+  background:var(--bois);
+  display:flex;flex-direction:column;justify-content:center;
+  align-items:center;text-align:center;
+  padding:32px 24px;min-height:320px;
+}
+.join-icon{font-size:36px;margin-bottom:16px;opacity:.8;}
+.join-title{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--blanc);margin-bottom:8px;}
+.join-sub{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:20px;}
+.join-btn{
+  display:inline-block;
+  padding:9px 20px;border:1.5px solid rgba(196,147,90,.5);border-radius:3px;
+  font-size:12px;color:var(--bois-lt);letter-spacing:.08em;
+  transition:all .2s;
+}
+.join-btn:hover{border-color:var(--bois-lt);background:rgba(196,147,90,.1);}
+
+/* ── ATELIER & MACHINES ──────────────────────────────── */
+#atelier{}
+.atelier-intro{max-width:680px;margin-bottom:64px;}
+
+/* Gallery grid mixte */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:auto;
+  gap:6px;
+  margin-bottom:64px;
+}
+.gal-item{
+  background:var(--bois-pale);border-radius:3px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:var(--bois-mid);opacity:.5;text-align:center;
+  position:relative;
+  min-height:180px;
+}
+.gal-item-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(28,28,27,.7),transparent);
+  padding:20px 14px 10px;
+  font-size:11px;font-weight:500;letter-spacing:.06em;
+  color:rgba(255,255,255,.8);opacity:1;
+  text-align:left;
+}
+/* Layout positions */
+.gal-item:nth-child(1){grid-column:span 7;min-height:300px;}
+.gal-item:nth-child(2){grid-column:span 5;min-height:300px;}
+.gal-item:nth-child(3){grid-column:span 4;min-height:220px;}
+.gal-item:nth-child(4){grid-column:span 4;min-height:220px;}
+.gal-item:nth-child(5){grid-column:span 4;min-height:220px;}
+.gal-item:nth-child(6){grid-column:span 6;min-height:220px;}
+.gal-item:nth-child(7){grid-column:span 6;min-height:220px;}
+
+/* Machines section */
+.machines-title{
+  font-family:var(--serif);font-size:clamp(22px,3vw,34px);
+  font-weight:700;color:var(--charbon);margin-bottom:40px;
+}
+.machines-title em{font-style:italic;color:var(--bois-mid);}
+.machines-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.machine-card{
+  border:1.5px solid var(--bois-pale);
+  border-radius:4px;padding:28px;
+  transition:border-color .2s,background .2s;
+  position:relative;overflow:hidden;
+}
+.machine-card:hover{border-color:var(--bois-lt);background:var(--bois-pale);}
+.machine-card::before{
+  content:attr(data-num);
+  position:absolute;top:12px;right:16px;
+  font-family:var(--serif);font-size:44px;font-weight:900;
+  color:rgba(0,0,0,.04);line-height:1;
+}
+.machine-icon{font-size:26px;margin-bottom:14px;}
+.machine-name{
+  font-family:var(--serif);font-size:17px;font-weight:700;
+  color:var(--charbon);margin-bottom:8px;
+}
+.machine-desc{font-size:13px;color:var(--gris);line-height:1.7;margin-bottom:14px;}
+.machine-specs{display:flex;flex-wrap:wrap;gap:6px;}
+.machine-spec{
+  font-size:11px;padding:3px 9px;border-radius:2px;
+  background:var(--bois-pale);color:var(--bois-mid);
+}
+
+/* ── ENGAGEMENT SECTION ──────────────────────────────── */
+.engagement-band{
+  background:var(--vert);
+  padding:64px 48px;
+}
+.eng-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.eng-label{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;}
+.eng-title{font-family:var(--serif);font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--blanc);margin-bottom:16px;}
+.eng-title em{font-style:italic;color:#8ed4a0;}
+.eng-text{font-size:15px;color:rgba(255,255,255,.6);line-height:1.85;}
+.eng-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.eng-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:20px;}
+.eng-stat .n{font-family:var(--serif);font-size:32px;font-weight:900;color:#8ed4a0;margin-bottom:4px;}
+.eng-stat .l{font-size:12px;color:rgba(255,255,255,.4);line-height:1.5;}
+
+/* ── CTA RETOUR ──────────────────────────────────────── */
+.cta-retour{
+  background:var(--charbon);
+  padding:64px 48px;
+  text-align:center;
+}
+.cta-retour h2{
+  font-family:var(--serif);font-size:clamp(24px,3vw,40px);
+  font-weight:700;color:var(--blanc);margin-bottom:12px;
+}
+.cta-retour h2 em{font-style:italic;color:var(--bois-lt);}
+.cta-retour p{font-size:15px;color:rgba(255,255,255,.45);margin-bottom:32px;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--bois-lt);color:var(--blanc);
+  padding:13px 32px;border-radius:3px;border:1.5px solid var(--bois-lt);
+  font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  transition:all .25s;
+}
+.btn-primary:hover{background:var(--bois-mid);border-color:var(--bois-mid);}
+.btn-outline{
+  background:transparent;color:var(--blanc);
+  padding:13px 32px;border-radius:3px;border:1.5px solid rgba(255,255,255,.25);
+  font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  transition:border-color .25s;
+}
+.btn-outline:hover{border-color:rgba(255,255,255,.6);}
+
+/* ── ANIMATIONS ──────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .65s var(--ease),transform .65s var(--ease);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media(max-width:960px){
+  nav{padding:0 20px;}
+  .page-hero-content,.section,.section-alt,.section-dark,.engagement-band,.cta-retour{padding-left:24px;padding-right:24px;}
+  .philo-grid,.team-intro,.eng-grid{grid-template-columns:1fr;gap:36px;}
+  .team-grid{grid-template-columns:1fr 1fr;gap:16px;}
+  .machines-grid{grid-template-columns:1fr 1fr;}
+  .gallery-grid{grid-template-columns:1fr 1fr;gap:6px;}
+  .gal-item:nth-child(n){grid-column:span 1;min-height:180px;}
+  .gal-item:nth-child(1){grid-column:span 2;}
+}
+@media(max-width:580px){
+  .team-grid{grid-template-columns:1fr;}
+  .machines-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:1fr;}
+  .gal-item:nth-child(1){grid-column:span 1;}
+  .eng-stats{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav>
+  <a href="charriere_bois.html" class="nav-logo">CHARRIERE <span>Bois</span></a>
+  <a href="charriere_bois.html#apropos" class="nav-back">Retour au site</a>
+  <a href="charriere_bois.html#contact" class="nav-cta">Nous contacter</a>
+</nav>
+
+<!-- ── HERO PAGE ─────────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grain"></div>
+  <div class="page-hero-deco">27</div>
+  <div class="page-hero-content">
+    <div class="breadcrumb">
+      <a href="charriere_bois.html">Accueil</a>
+      <span>/</span>
+      <span style="color:rgba(255,255,255,.6)">L'équipe & l'atelier</span>
+    </div>
+    <p class="page-hero-eyebrow">Depuis 1997 · Marsac-sur-l'Isle</p>
+    <h1 class="page-hero-title">L'équipe &<br><em>l'atelier</em></h1>
+    <p class="page-hero-sub">Des hommes et des femmes passionnés, un atelier bien équipé. Chez Charrière Bois, le conseil et le savoir-faire vont de pair depuis 27 ans.</p>
+  </div>
+</div>
+
+<!-- ── PHILOSOPHIE ───────────────────────────────────────── -->
+<section class="section" id="philosophie">
+  <div class="container">
+    <div class="philo-grid">
+
+      <div class="philo-img reveal">
+        📷<br>Photo de l'équipe<br>ou du magasin
+      </div>
+
+      <div>
+        <p class="label reveal">Notre philosophie</p>
+        <h2 class="h2 reveal">Une affaire de famille,<br><em>une passion</em> du bois</h2>
+
+        <p class="lead reveal" style="margin-bottom:16px;">
+          Fondée en 1997, CHARRIERE Bois est née d'un amour sincère pour la matière bois et d'une conviction : bien conseiller vaut mieux que vendre vite. Depuis plus de 27 ans, nous avons bâti notre réputation sur la confiance, la proximité et l'expertise.
+        </p>
+        <p class="lead reveal" style="font-size:15px;">
+          Notre approche est simple — être le maillon utile entre le fabricant et le chantier, sans jamais empiéter sur le métier de l'artisan. Nous aidons les professionnels à gagner du temps et guidons les particuliers dans leurs projets avec pédagogie et bienveillance.
+        </p>
+
+        <div class="philo-quote reveal">
+          <p>« On ne mange pas le pain des artisans. Notre rôle, c'est de vous donner la matière et le conseil pour que votre chantier avance. »</p>
+          <cite>— La famille Charrière</cite>
+        </div>
+
+        <div class="philo-values">
+          <div class="philo-val reveal">
+            <div class="philo-val-icon">🤝</div>
+            <div class="philo-val-txt">
+              <h4>Conseil sans arrière-pensée</h4>
+              <p>Nous orientons chaque client vers ce qui correspond réellement à son projet et à son budget. Pas de vente forcée, pas de sur-spécification.</p>
+            </div>
+          </div>
+          <div class="philo-val reveal d1">
+            <div class="philo-val-icon">🧠</div>
+            <div class="philo-val-txt">
+              <h4>Expertise technique transmise</h4>
+              <p>Nos équipes se forment en continu sur les nouvelles essences, les isolants biosourcés et les techniques de mise en œuvre pour vous apporter les réponses justes.</p>
+            </div>
+          </div>
+          <div class="philo-val reveal d2">
+            <div class="philo-val-icon">🌱</div>
+            <div class="philo-val-txt">
+              <h4>Commerce du bois responsable</h4>
+              <p>Parrainage d'arbres, isolants biosourcés, peintures écologiques — nous agissons concrètement pour que notre activité respecte la forêt qui nous fait vivre.</p>
+            </div>
+          </div>
+          <div class="philo-val reveal d3">
+            <div class="philo-val-icon">📍</div>
+            <div class="philo-val-txt">
+              <h4>Ancrage local & réseau artisans</h4>
+              <p>Nous recommandons des artisans de confiance de la région et participons à créer un écosystème vertueux entre fournisseurs, constructeurs et habitants du Périgord.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── ÉQUIPE ─────────────────────────────────────────────── -->
+<section class="section-alt" id="equipe">
+  <div class="container">
+    <div class="team-intro">
+      <div>
+        <p class="label reveal">L'équipe</p>
+        <h2 class="h2 reveal">Des visages,<br><em>des passions</em></h2>
+      </div>
+      <div>
+        <p class="lead reveal">Chaque membre de l'équipe apporte son expertise et sa personnalité. C'est cette diversité qui fait la richesse de nos conseils et la chaleur de votre accueil au comptoir.</p>
+      </div>
+    </div>
+
+    <div class="team-grid">
+
+      <!-- Membre 1 -->
+      <div class="team-card reveal">
+        <div class="team-photo">
+          📷<br>Photo à insérer
+          <div class="team-photo-overlay"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Prénom NOM</div>
+          <div class="team-role">Gérant · Fondateur</div>
+          <p class="team-desc">Passionné de bois depuis toujours, il a fondé l'entreprise en 1997 avec l'ambition d'un négoce à taille humaine, ancré dans le Périgord.</p>
+        </div>
+      </div>
+
+      <!-- Membre 2 -->
+      <div class="team-card reveal d1">
+        <div class="team-photo">
+          📷<br>Photo à insérer
+          <div class="team-photo-overlay"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Prénom NOM</div>
+          <div class="team-role">Responsable Commerce</div>
+          <p class="team-desc">Expert en essences et en panneaux, il accompagne artisans et particuliers dans leurs choix avec pédagogie et bonne humeur.</p>
+        </div>
+      </div>
+
+      <!-- Membre 3 -->
+      <div class="team-card reveal d2">
+        <div class="team-photo">
+          📷<br>Photo à insérer
+          <div class="team-photo-overlay"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Prénom NOM</div>
+          <div class="team-role">Chef d'atelier</div>
+          <p class="team-desc">Maître de la scie CNC et du rabotage, il transforme vos commandes en pièces prêtes à poser. La précision, c'est son terrain de jeu.</p>
+        </div>
+      </div>
+
+      <!-- Membre 4 -->
+      <div class="team-card reveal d3">
+        <div class="team-photo">
+          📷<br>Photo à insérer
+          <div class="team-photo-overlay"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Prénom NOM</div>
+          <div class="team-role">Conseiller Isolation éco</div>
+          <p class="team-desc">Spécialiste des matériaux biosourcés, il vous guide dans le choix de l'isolant le plus adapté à votre projet et à votre budget.</p>
+        </div>
+      </div>
+
+      <!-- Membre 5 -->
+      <div class="team-card reveal">
+        <div class="team-photo">
+          📷<br>Photo à insérer
+          <div class="team-photo-overlay"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Prénom NOM</div>
+          <div class="team-role">Logistique & Magasin</div>
+          <p class="team-desc">Garant de l'organisation du stock et de la disponibilité des produits. Votre commande est prête quand vous en avez besoin.</p>
+        </div>
+      </div>
+
+      <!-- Membre 6 -->
+      <div class="team-card reveal d1">
+        <div class="team-photo">
+          📷<br>Photo à insérer
+          <div class="team-photo-overlay"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Prénom NOM</div>
+          <div class="team-role">Accueil & Administration</div>
+          <p class="team-desc">Premier sourire que vous croisez au comptoir, elle coordonne les devis, les commandes et veille à ce que tout se passe bien.</p>
+        </div>
+      </div>
+
+      <!-- Membre 7 -->
+      <div class="team-card reveal d2">
+        <div class="team-photo">
+          📷<br>Photo à insérer
+          <div class="team-photo-overlay"></div>
+        </div>
+        <div class="team-info">
+          <div class="team-name">Prénom NOM</div>
+          <div class="team-role">Conseiller Décoration</div>
+          <p class="team-desc">Lambris, parquets, lasures, peintures éco — il transforme vos idées d'intérieur en projets concrets avec les bons matériaux.</p>
+        </div>
+      </div>
+
+      <!-- Carte rejoindre -->
+      <div class="team-card join reveal d3">
+        <div class="join-icon">✦</div>
+        <div class="join-title">Rejoindre l'équipe ?</div>
+        <p class="join-sub">Nous sommes toujours à l'écoute de profils passionnés par le bois et le conseil client.</p>
+        <a href="charriere_bois.html#contact" class="join-btn">Nous écrire</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── ATELIER & GALERIE ──────────────────────────────────── -->
+<section class="section" id="atelier">
+  <div class="container">
+
+    <div class="atelier-intro">
+      <p class="label reveal">Notre atelier</p>
+      <h2 class="h2 reveal">Un atelier équipé pour <em>vous faire<br>gagner du temps</em></h2>
+      <p class="lead reveal" style="margin-top:8px;">Nous ne sommes pas seulement un point de vente — nous transformons le bois sur place. Nos machines permettent de livrer des pièces prêtes à poser, à vos cotes exactes, dans les meilleurs délais.</p>
+    </div>
+
+    <!-- Galerie photos -->
+    <div class="gallery-grid">
+      <div class="gal-item reveal">
+        📷 Vue générale de l'atelier
+        <div class="gal-item-label">L'atelier CHARRIERE Bois</div>
+      </div>
+      <div class="gal-item reveal d1">
+        📷 Stock de bois
+        <div class="gal-item-label">Stock bois de charpente</div>
+      </div>
+      <div class="gal-item reveal">
+        📷 Scie CNC
+        <div class="gal-item-label">Découpe numérique CNC</div>
+      </div>
+      <div class="gal-item reveal d1">
+        📷 Raboteuse
+        <div class="gal-item-label">Atelier rabotage</div>
+      </div>
+      <div class="gal-item reveal d2">
+        📷 Stock panneaux
+        <div class="gal-item-label">Rack panneaux & mélaminés</div>
+      </div>
+      <div class="gal-item reveal">
+        📷 Espace conseil isolation
+        <div class="gal-item-label">Gamme isolation écologique</div>
+      </div>
+      <div class="gal-item reveal d1">
+        📷 Magasin quincaillerie
+        <div class="gal-item-label">Espace quincaillerie</div>
+      </div>
+    </div>
+
+    <!-- Machines -->
+    <h3 class="machines-title reveal">Nos <em>équipements</em></h3>
+
+    <div class="machines-grid">
+
+      <div class="machine-card reveal" data-num="01">
+        <div class="machine-icon">🖥️</div>
+        <div class="machine-name">Scie à commande numérique CNC</div>
+        <p class="machine-desc">Notre machine phare. Elle permet une découpe de panneaux avec une précision au millimètre, quel que soit le format ou la complexité de la pièce. Idéale pour menuisiers, cuisinistes et agencement.</p>
+        <div class="machine-specs">
+          <span class="machine-spec">Découpe précise</span>
+          <span class="machine-spec">Tous panneaux</span>
+          <span class="machine-spec">Sur plan ou cote</span>
+          <span class="machine-spec">Répétitions en série</span>
+        </div>
+      </div>
+
+      <div class="machine-card reveal d1" data-num="02">
+        <div class="machine-icon">🪚</div>
+        <div class="machine-name">Scie de refente</div>
+        <p class="machine-desc">Permet de découper les bois massifs dans le sens de la longueur pour obtenir des sections personnalisées. Indispensable pour adapter les pièces aux contraintes de chantier.</p>
+        <div class="machine-specs">
+          <span class="machine-spec">Refente sur mesure</span>
+          <span class="machine-spec">Bois massifs</span>
+          <span class="machine-spec">Toutes essences</span>
+          <span class="machine-spec">Délai rapide</span>
+        </div>
+      </div>
+
+      <div class="machine-card reveal d2" data-num="03">
+        <div class="machine-icon">⚙️</div>
+        <div class="machine-name">Raboteuse & Dégauchisseuse</div>
+        <p class="machine-desc">Pour obtenir des surfaces planes et des épaisseurs uniformes. Vos bois arrivent rabotés, calibrés, prêts à poser ou à assembler. Un gain de temps précieux sur chantier.</p>
+        <div class="machine-specs">
+          <span class="machine-spec">Rabotage 4 faces</span>
+          <span class="machine-spec">Calibrage épaisseur</span>
+          <span class="machine-spec">Finition surface</span>
+          <span class="machine-spec">Grandes longueurs</span>
+        </div>
+      </div>
+
+      <div class="machine-card reveal" data-num="04">
+        <div class="machine-icon">📐</div>
+        <div class="machine-name">Scie circulaire de format</div>
+        <p class="machine-desc">Pour le débit rapide de panneaux aux formats standards ou personnalisés. Complémentaire de la CNC pour les volumes importants et les coupes droites sur grande largeur.</p>
+        <div class="machine-specs">
+          <span class="machine-spec">Débit format</span>
+          <span class="machine-spec">Grande largeur</span>
+          <span class="machine-spec">Panneaux & massif</span>
+        </div>
+      </div>
+
+      <div class="machine-card reveal d1" data-num="05">
+        <div class="machine-icon">🚛</div>
+        <div class="machine-name">Chariot élévateur & Stockage</div>
+        <p class="machine-desc">Un espace de stockage organisé et un chariot élévateur pour gérer les grandes quantités. Chargement rapide pour les artisans qui viennent s'approvisionner ou récupérer leurs commandes.</p>
+        <div class="machine-specs">
+          <span class="machine-spec">Chargement rapide</span>
+          <span class="machine-spec">Grandes quantités</span>
+          <span class="machine-spec">Stock organisé</span>
+        </div>
+      </div>
+
+      <div class="machine-card reveal d2" data-num="06">
+        <div class="machine-icon">📦</div>
+        <div class="machine-name">Espace préparation commandes</div>
+        <p class="machine-desc">Zone dédiée à la préparation, au cerclage et à l'étiquetage de vos commandes. Les pièces découpées sont regroupées, protégées et prêtes à être chargées ou récupérées.</p>
+        <div class="machine-specs">
+          <span class="machine-spec">Préparation soignée</span>
+          <span class="machine-spec">Cerclage protection</span>
+          <span class="machine-spec">Étiquetage chantier</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── ENGAGEMENT ─────────────────────────────────────────── -->
+<div class="engagement-band">
+  <div class="container">
+    <div class="eng-grid">
+      <div>
+        <p class="eng-label reveal">Notre engagement environnemental</p>
+        <h2 class="eng-title reveal">Vendre du bois,<br><em>planter des arbres</em></h2>
+        <p class="eng-text reveal">En partenariat avec l'association Cœur de Forêt, nous parrainons 100 arbres sur une parcelle en Dordogne — projet France Sud-Ouest. Une façon concrète de rendre à la forêt une partie de ce qu'elle nous donne chaque jour.</p>
+      </div>
+      <div class="eng-stats reveal">
+        <div class="eng-stat"><div class="n">100</div><div class="l">arbres parrainés<br>en Dordogne</div></div>
+        <div class="eng-stat"><div class="n">27</div><div class="l">ans de négoce<br>responsable</div></div>
+        <div class="eng-stat"><div class="n">4</div><div class="l">isolants<br>biosourcés</div></div>
+        <div class="eng-stat"><div class="n">1997</div><div class="l">année de<br>fondation</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CTA RETOUR ─────────────────────────────────────────── -->
+<div class="cta-retour">
+  <div class="container">
+    <h2>Vous avez un <em>projet bois</em> ?</h2>
+    <p>Notre équipe vous accueille du lundi au samedi matin à Marsac-sur-l'Isle.</p>
+    <div class="cta-btns">
+      <a href="charriere_bois.html#contact" class="btn-primary">Nous contacter</a>
+      <a href="charriere_bois.html#services" class="btn-outline">Voir nos produits</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

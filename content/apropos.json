@@ -1,0 +1,23 @@
+{
+  "photo": "",
+  "annees": 27,
+  "titre": "Une entreprise familiale, ancrée dans son territoire",
+  "texte": "Depuis 1997, la famille Charrière met son savoir-faire au service des artisans et des particuliers du Périgord. Ici, le bois n'est pas un simple matériau : c'est une passion transmise de génération en génération, avec le conseil bienveillant comme fil conducteur.",
+  "valeurs": [
+    {
+      "icone": "🤝",
+      "titre": "Conseil sans pression",
+      "description": "Nous guidons chaque client vers la meilleure solution pour son projet — sans jamais empiéter sur le travail des artisans."
+    },
+    {
+      "icone": "🌱",
+      "titre": "Engagés pour la forêt",
+      "description": "Parrain de 100 arbres avec Cœur de Forêt, nous agissons concrètement pour un commerce du bois responsable."
+    },
+    {
+      "icone": "⚙️",
+      "titre": "Atelier de découpe & rabotage",
+      "description": "Scie à commande numérique, refente, rabotage sur mesure — votre chantier avance plus vite."
+    }
+  ]
+}
