@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Fermeture estivale",
+    "date": "2026-08-01T00:00:00.000Z",
+    "type": "fermeture",
+    "resume": "CHARRIERE Bois sera fermé du 1er au 15 août. Réouverture le lundi 18 août dès 8h. Bonnes vacances à tous !",
+    "body": "",
+    "image": "",
+    "en_avant": true
+  },
+  {
+    "title": "Journée Portes Ouvertes",
+    "date": "2026-06-14T09:00:00.000Z",
+    "type": "jpo",
+    "resume": "Venez découvrir nos nouveautés, nos équipements et rencontrer toute l'équipe. Démonstration de découpe CNC et conseils gratuits toute la journée.",
+    "body": "Une journée pour vous accueillir et vous faire découvrir notre atelier, nos nouvelles gammes d'isolation écologique et nos équipements de découpe. L'équipe sera présente pour répondre à toutes vos questions.",
+    "image": "",
+    "en_avant": true
+  },
+  {
+    "title": "Nouvelle gamme isolation liège",
+    "date": "2026-05-20T00:00:00.000Z",
+    "type": "actu",
+    "resume": "Nous élargissons notre gamme d'isolation écologique avec de nouveaux panneaux en liège expansé. Idéal pour les rénovations thermiques et acoustiques.",
+    "body": "",
+    "image": "",
+    "en_avant": true
+  }
+]

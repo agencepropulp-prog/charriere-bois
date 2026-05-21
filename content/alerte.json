@@ -1,8 +1,8 @@
 {
-  "actif": true,
+  "actif": false,
   "type": "info",
   "texte": "Fermé du 11 au 25 août. Réouverture le lundi 26 août dès 8h.",
   "lien": "",
   "lien_texte": "",
-  "date_fin": "2026-05-31T12:00:00.000+02:00"
+  "date_fin": ""
 }

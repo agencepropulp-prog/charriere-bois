@@ -2,24 +2,18 @@ backend:
   name: git-gateway
   branch: main
 
-# Stockage des médias uploadés dans /assets/images
 media_folder: "assets/images"
 public_folder: "/assets/images"
 
-# Langue de l'interface
 locale: fr
-
-# Logo back-office (optionnel)
-logo_url: /assets/images/logo.png
 
 collections:
 
   # ─────────────────────────────────────────────
-  # 1. PARAMÈTRES GÉNÉRAUX DU SITE
+  # 1. PARAMÈTRES GÉNÉRAUX
   # ─────────────────────────────────────────────
   - name: "parametres"
     label: "⚙️ Paramètres du site"
-    description: "Coordonnées, réseaux sociaux, formulaire de contact"
     files:
 
       - name: "infos"
@@ -28,72 +22,32 @@ collections:
         fields:
           - { label: "Nom de l'entreprise", name: "nom", widget: "string", default: "CHARRIERE Bois" }
           - { label: "Téléphone", name: "telephone", widget: "string", default: "05 53 07 94 53" }
-          - { label: "Email de l'entreprise (affiché sur le site)", name: "email_affiche", widget: "string" }
-          - label: "Email de destination du formulaire de contact"
-            name: "email_formulaire"
-            widget: "string"
-            hint: "Les messages du formulaire seront envoyés à cette adresse (via Formspree)"
-          - { label: "Adresse — Rue", name: "adresse_rue", widget: "string", default: "8 Rue de la Prairie" }
-          - { label: "Adresse — Code postal & Ville", name: "adresse_ville", widget: "string", default: "24430 Marsac-sur-l'Isle" }
-          - { label: "Adresse — Complément (ex: Dordogne)", name: "adresse_dept", widget: "string", default: "Dordogne (24)" }
+          - { label: "Email affiché sur le site", name: "email_affiche", widget: "string" }
+          - { label: "Email destination formulaire", name: "email_formulaire", widget: "string", hint: "Les messages du formulaire seront envoyés ici" }
+          - { label: "Adresse — Rue", name: "adresse_rue", widget: "string" }
+          - { label: "Adresse — Ville", name: "adresse_ville", widget: "string" }
+          - { label: "Adresse — Département", name: "adresse_dept", widget: "string" }
 
       - name: "reseaux"
         label: "📱 Réseaux sociaux"
         file: "content/reseaux.json"
         fields:
-          - label: "Facebook"
-            name: "facebook"
-            widget: "string"
-            required: false
-            hint: "URL complète : https://www.facebook.com/CHARRIEREBOIS/"
-          - label: "Instagram"
-            name: "instagram"
-            widget: "string"
-            required: false
-            hint: "URL complète : https://www.instagram.com/..."
-          - label: "Google Business"
-            name: "google_business"
-            widget: "string"
-            required: false
-            hint: "URL de votre fiche Google"
+          - { label: "Facebook (URL complète)", name: "facebook", widget: "string", required: false }
+          - { label: "Instagram (URL complète)", name: "instagram", widget: "string", required: false }
+          - { label: "Google Business (URL)", name: "google_business", widget: "string", required: false }
 
       - name: "horaires"
         label: "🕐 Horaires d'ouverture"
         file: "content/horaires.json"
         fields:
-          - label: "Lundi"
-            name: "lundi"
-            widget: "string"
-            default: "8h00 – 12h00 · 14h00 – 18h00"
-          - label: "Mardi"
-            name: "mardi"
-            widget: "string"
-            default: "8h00 – 12h00 · 14h00 – 18h00"
-          - label: "Mercredi"
-            name: "mercredi"
-            widget: "string"
-            default: "8h00 – 12h00 · 14h00 – 18h00"
-          - label: "Jeudi"
-            name: "jeudi"
-            widget: "string"
-            default: "8h00 – 12h00 · 14h00 – 18h00"
-          - label: "Vendredi"
-            name: "vendredi"
-            widget: "string"
-            default: "8h00 – 12h00 · 14h00 – 18h00"
-          - label: "Samedi"
-            name: "samedi"
-            widget: "string"
-            default: "8h00 – 12h00"
-          - label: "Dimanche"
-            name: "dimanche"
-            widget: "string"
-            default: "Fermé"
-          - label: "Message d'horaires spéciaux"
-            name: "message_special"
-            widget: "string"
-            required: false
-            hint: "Ex: Fermé du 11 au 25 août. Laissez vide si rien de particulier."
+          - { label: "Lundi", name: "lundi", widget: "string" }
+          - { label: "Mardi", name: "mardi", widget: "string" }
+          - { label: "Mercredi", name: "mercredi", widget: "string" }
+          - { label: "Jeudi", name: "jeudi", widget: "string" }
+          - { label: "Vendredi", name: "vendredi", widget: "string" }
+          - { label: "Samedi", name: "samedi", widget: "string" }
+          - { label: "Dimanche", name: "dimanche", widget: "string" }
+          - { label: "Message spécial (fermeture, vacances...)", name: "message_special", widget: "string", required: false, hint: "Laisser vide si rien de particulier" }
 
   # ─────────────────────────────────────────────
   # 2. PAGE D'ACCUEIL
@@ -103,41 +57,28 @@ collections:
     files:
 
       - name: "hero"
-        label: "🎬 Bandeau vidéo (Hero)"
+        label: "🎬 Bandeau vidéo"
         file: "content/hero.json"
         fields:
-          - label: "Vidéo de fond (fichier .mp4)"
-            name: "video"
-            widget: "file"
-            media_folder: "/assets/video"
-            public_folder: "/assets/video"
-            hint: "Vidéo au format MP4, idéalement 1920×1080, < 30 Mo"
-            required: false
-          - label: "Image de secours (si pas de vidéo)"
-            name: "poster"
-            widget: "image"
-            hint: "Photo affichée pendant le chargement de la vidéo ou si pas de vidéo"
-            required: false
-          - { label: "Texte au-dessus du titre (petit)", name: "eyebrow", widget: "string", default: "Négoce Bois · Marsac-sur-l'Isle · Dordogne" }
-          - { label: "Titre principal (ligne 1)", name: "titre_ligne1", widget: "string", default: "Bienvenue chez" }
-          - { label: "Titre principal (ligne 2 — mis en valeur)", name: "titre_ligne2", widget: "string", default: "Charrière Bois" }
-          - { label: "Année de fondation", name: "annee", widget: "number", default: 1997 }
-          - { label: "Sous-titre", name: "sous_titre", widget: "text", default: "Bois de charpente, panneaux, isolation écologique & quincaillerie.\nConseil expert, découpe sur mesure, esprit familial." }
-          - { label: "Texte bouton principal", name: "btn1_texte", widget: "string", default: "Découvrir nos produits" }
-          - { label: "Texte bouton secondaire", name: "btn2_texte", widget: "string", default: "Nous trouver" }
+          - { label: "Vidéo de fond (.mp4)", name: "video", widget: "file", media_folder: "/assets/video", public_folder: "/assets/video", required: false }
+          - { label: "Image de secours (si pas de vidéo)", name: "poster", widget: "image", required: false }
+          - { label: "Texte au-dessus du titre", name: "eyebrow", widget: "string" }
+          - { label: "Titre ligne 1", name: "titre_ligne1", widget: "string" }
+          - { label: "Titre ligne 2 (mis en valeur)", name: "titre_ligne2", widget: "string" }
+          - { label: "Année de fondation", name: "annee", widget: "number" }
+          - { label: "Sous-titre", name: "sous_titre", widget: "text" }
+          - { label: "Bouton principal (texte)", name: "btn1_texte", widget: "string" }
+          - { label: "Bouton secondaire (texte)", name: "btn2_texte", widget: "string" }
 
       - name: "apropos_home"
-        label: "👨‍👩‍👧 Bloc À propos (accueil)"
+        label: "👨‍👩‍👧 Bloc À propos"
         file: "content/apropos.json"
         fields:
-          - label: "Photo principale (gauche)"
-            name: "photo"
-            widget: "image"
-            hint: "Format portrait recommandé (4:5)"
-          - { label: "Nombre d'années (badge)", name: "annees", widget: "number", default: 27 }
-          - { label: "Titre du bloc", name: "titre", widget: "string", default: "Une entreprise familiale, ancrée dans son territoire" }
+          - { label: "Photo principale", name: "photo", widget: "image", required: false }
+          - { label: "Nombre d'années (badge)", name: "annees", widget: "number" }
+          - { label: "Titre", name: "titre", widget: "string" }
           - { label: "Texte descriptif", name: "texte", widget: "text" }
-          - label: "Valeurs (3 lignes)"
+          - label: "Valeurs (3 maximum)"
             name: "valeurs"
             widget: "list"
             max: 3
@@ -147,14 +88,14 @@ collections:
               - { label: "Description", name: "description", widget: "text" }
 
   # ─────────────────────────────────────────────
-  # 3. PHOTOS DU SITE
+  # 3. PHOTOS
   # ─────────────────────────────────────────────
   - name: "photos"
     label: "📷 Photos du site"
     files:
 
       - name: "photos_equipe"
-        label: "👥 Photos de l'équipe"
+        label: "👥 Équipe"
         file: "content/photos_equipe.json"
         fields:
           - label: "Membres de l'équipe"
@@ -162,34 +103,20 @@ collections:
             widget: "list"
             fields:
               - { label: "Prénom et Nom", name: "nom", widget: "string" }
-              - { label: "Fonction / Poste", name: "fonction", widget: "string" }
-              - { label: "Description courte", name: "description", widget: "text" }
-              - label: "Photo"
-                name: "photo"
-                widget: "image"
-                required: false
+              - { label: "Fonction", name: "fonction", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Photo", name: "photo", widget: "image", required: false }
 
       - name: "galerie_atelier"
-        label: "🏭 Galerie de l'atelier"
+        label: "🏭 Galerie atelier"
         file: "content/galerie.json"
         fields:
-          - label: "Photos de l'atelier"
+          - label: "Photos"
             name: "photos"
             widget: "list"
             fields:
-              - { label: "Légende / Description", name: "legende", widget: "string" }
-              - label: "Photo"
-                name: "photo"
-                widget: "image"
-
-      - name: "photo_a_propos"
-        label: "🖼️ Photo page À propos"
-        file: "content/photo_apropos.json"
-        fields:
-          - label: "Photo principale (atelier ou équipe)"
-            name: "photo"
-            widget: "image"
-          - { label: "Texte alternatif (accessibilité)", name: "alt", widget: "string", default: "L'équipe CHARRIERE Bois dans l'atelier" }
+              - { label: "Légende", name: "legende", widget: "string" }
+              - { label: "Photo", name: "photo", widget: "image" }
 
   # ─────────────────────────────────────────────
   # 4. POPUP & ALERTES
@@ -202,74 +129,39 @@ collections:
         label: "💬 Popup d'annonce"
         file: "content/popup.json"
         fields:
-          - label: "Activer le popup"
-            name: "actif"
-            widget: "boolean"
-            default: false
-            hint: "Cochez pour afficher le popup à l'ouverture du site"
-          - label: "Type de popup"
+          - { label: "Activer le popup", name: "actif", widget: "boolean", default: false }
+          - label: "Type"
             name: "type"
             widget: "select"
             options:
-              - { label: "Informations (bleu)", value: "info" }
-              - { label: "Promotion (vert)", value: "promo" }
-              - { label: "Fermeture / Alerte (orange)", value: "alerte" }
-              - { label: "Événement (bois)", value: "evenement" }
-          - { label: "Titre du popup", name: "titre", widget: "string" }
-          - { label: "Contenu du popup", name: "contenu", widget: "text" }
-          - label: "Bouton (optionnel)"
-            name: "btn_texte"
-            widget: "string"
-            required: false
-            hint: "Texte du bouton. Laisser vide pour afficher uniquement le texte."
-          - label: "Lien du bouton"
-            name: "btn_lien"
-            widget: "string"
-            required: false
-            hint: "Ex: #contact ou https://..."
-          - label: "Image (optionnel)"
-            name: "image"
-            widget: "image"
-            required: false
-          - label: "Date de fin d'affichage"
-            name: "date_fin"
-            widget: "datetime"
-            required: false
-            hint: "Le popup s'arrêtera automatiquement à cette date"
+              - { label: "Information", value: "info" }
+              - { label: "Promotion", value: "promo" }
+              - { label: "Alerte / Fermeture", value: "alerte" }
+              - { label: "Événement", value: "evenement" }
+          - { label: "Titre", name: "titre", widget: "string" }
+          - { label: "Contenu", name: "contenu", widget: "text" }
+          - { label: "Texte du bouton (optionnel)", name: "btn_texte", widget: "string", required: false }
+          - { label: "Lien du bouton", name: "btn_lien", widget: "string", required: false }
+          - { label: "Image (optionnel)", name: "image", widget: "image", required: false }
+          - { label: "Date de fin (disparaît automatiquement)", name: "date_fin", widget: "datetime", required: false }
 
       - name: "banniere_alerte"
-        label: "🔔 Bandeau d'alerte / Actualité"
+        label: "🔔 Bandeau d'alerte"
         file: "content/alerte.json"
         fields:
-          - label: "Afficher le bandeau"
-            name: "actif"
-            widget: "boolean"
-            default: false
-            hint: "Bandeau affiché en haut de page sous la navigation"
+          - { label: "Afficher le bandeau", name: "actif", widget: "boolean", default: false }
           - label: "Type"
             name: "type"
             widget: "select"
             options:
               - { label: "Fermeture exceptionnelle", value: "fermeture" }
-              - { label: "Promotion / Bonne affaire", value: "promo" }
-              - { label: "Événement / Atelier", value: "evenement" }
-              - { label: "Information générale", value: "info" }
-          - { label: "Texte du bandeau", name: "texte", widget: "string", hint: "Ex: Fermé du 11 au 25 août. Réouverture le lundi 26 août dès 8h." }
-          - label: "Lien (optionnel)"
-            name: "lien"
-            widget: "string"
-            required: false
-            hint: "Ex: #contact ou vers une page de détail"
-          - label: "Texte du lien"
-            name: "lien_texte"
-            widget: "string"
-            required: false
-            hint: "Ex: En savoir plus →"
-          - label: "Date de fin"
-            name: "date_fin"
-            widget: "datetime"
-            required: false
-            hint: "Le bandeau disparaît automatiquement à cette date"
+              - { label: "Promotion", value: "promo" }
+              - { label: "Événement", value: "evenement" }
+              - { label: "Information", value: "info" }
+          - { label: "Texte du bandeau", name: "texte", widget: "string" }
+          - { label: "Lien (optionnel)", name: "lien", widget: "string", required: false }
+          - { label: "Texte du lien", name: "lien_texte", widget: "string", required: false }
+          - { label: "Date de fin automatique", name: "date_fin", widget: "datetime", required: false }
 
   # ─────────────────────────────────────────────
   # 5. ÉVÉNEMENTS & ACTUALITÉS
@@ -280,6 +172,8 @@ collections:
     folder: "content/evenements"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "json"
+    format: "json"
     fields:
       - { label: "Titre", name: "title", widget: "string" }
       - { label: "Date de l'événement", name: "date", widget: "datetime" }
@@ -287,18 +181,12 @@ collections:
         name: "type"
         widget: "select"
         options:
-          - { label: "Journée Portes Ouvertes", value: "jpo" }
-          - { label: "Atelier / Formation", value: "atelier" }
-          - { label: "Promotion", value: "promo" }
-          - { label: "Fermeture", value: "fermeture" }
-          - { label: "Actualité", value: "actu" }
-      - { label: "Description courte", name: "resume", widget: "text" }
-      - { label: "Contenu détaillé", name: "body", widget: "markdown", required: false }
-      - label: "Image"
-        name: "image"
-        widget: "image"
-        required: false
-      - label: "Afficher sur la page d'accueil"
-        name: "en_avant"
-        widget: "boolean"
-        default: false
+          - { label: "🏠 Journée Portes Ouvertes", value: "jpo" }
+          - { label: "🪚 Atelier / Formation", value: "atelier" }
+          - { label: "🎉 Promotion", value: "promo" }
+          - { label: "🔒 Fermeture", value: "fermeture" }
+          - { label: "📢 Actualité", value: "actu" }
+      - { label: "Résumé court (affiché sur la carte)", name: "resume", widget: "text" }
+      - { label: "Contenu détaillé (optionnel)", name: "body", widget: "markdown", required: false }
+      - { label: "Image (optionnel)", name: "image", widget: "image", required: false }
+      - { label: "Mettre en avant sur l'accueil", name: "en_avant", widget: "boolean", default: true, hint: "Cocher pour afficher cet événement sur la page d'accueil" }

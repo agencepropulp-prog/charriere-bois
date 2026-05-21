@@ -261,6 +261,47 @@ nav.scrolled{background:rgba(28,28,27,1);}
 .pq-card:nth-child(2) .pq-list li::before{color:var(--vert-lt);}
 .pq-card:nth-child(2) .btn-link{color:var(--vert);border-color:var(--vert-lt);}
 
+
+/* ÉVÉNEMENTS */
+#evenements{background:var(--blanc);}
+.ev-intro{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:56px;}
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.ev-card{
+  border-radius:4px;overflow:hidden;
+  border:0.5px solid #E0D5C5;
+  transition:transform .25s,box-shadow .25s;
+  cursor:default;
+}
+.ev-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(107,61,30,.1);}
+.ev-card-img{
+  width:100%;height:160px;
+  background:var(--bois-pale);
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;position:relative;overflow:hidden;
+}
+.ev-card-img img{width:100%;height:100%;object-fit:cover;}
+.ev-type-badge{
+  position:absolute;top:12px;left:12px;
+  font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:2px;
+}
+.ev-type-jpo{background:var(--bois);color:var(--blanc);}
+.ev-type-atelier{background:var(--vert);color:var(--blanc);}
+.ev-type-promo{background:#C9A84C;color:var(--blanc);}
+.ev-type-fermeture{background:var(--charbon);color:var(--blanc);}
+.ev-type-actu{background:#3B7DC4;color:var(--blanc);}
+.ev-body{padding:20px;}
+.ev-date{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--bois-lt);margin-bottom:8px;}
+.ev-title{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--charbon);margin-bottom:8px;line-height:1.3;}
+.ev-desc{font-size:13px;color:var(--gris);line-height:1.65;}
+.ev-empty{
+  grid-column:1/-1;text-align:center;
+  padding:60px 24px;
+  background:var(--gris-pale);border-radius:4px;
+  font-size:14px;color:var(--gris);
+}
+@media(max-width:960px){.ev-intro,.ev-grid{grid-template-columns:1fr;}.ev-intro{gap:24px;}}
+
 /* CONTACT */
 #contact{background:var(--gris-pale);}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;}
@@ -376,6 +417,7 @@ footer{background:var(--charbon);padding:64px 48px 36px;}
     <a href="#horaires">Horaires</a>
     <a href="#pourqui">Pour qui ?</a>
     <a href="#eco">Engagements</a>
+    <a href="#evenements" id="nav-evenements" style="display:none">Actualités</a>
   </div>
   <div class="nav-right">
     <a href="#contact" class="nav-cta">Nous contacter</a>
@@ -390,6 +432,7 @@ footer{background:var(--charbon);padding:64px 48px 36px;}
   <a href="#horaires" onclick="closeMob()">Horaires & accès</a>
   <a href="#pourqui" onclick="closeMob()">Pour qui ?</a>
   <a href="#eco" onclick="closeMob()">Engagements éco</a>
+  <a href="#evenements" id="mob-evenements" onclick="closeMob()" style="display:none">Actualités</a>
   <a href="#contact" onclick="closeMob()">Contact</a>
   <div class="mob-section">Nos produits</div>
   <a href="#services" onclick="closeMob()">🏗️ Bois de charpente</a>
@@ -515,6 +558,24 @@ footer{background:var(--charbon);padding:64px 48px 36px;}
     <div class="pq-grid">
       <div class="pq-card reveal"><div class="pq-num">01</div><h3 class="pq-title">Artisans & Professionnels</h3><p class="pq-desc">Charpentiers, menuisiers, maçons — nous sommes votre fournisseur de confiance. Nous ne faisons pas le travail de l'artisan, nous lui faisons gagner du temps.</p><ul class="pq-list"><li>Stock disponible immédiatement</li><li>Découpe, rabotage et refente à vos cotes</li><li>Conseils techniques sur les essences et sections</li><li>Réseau de recommandations d'artisans partenaires</li></ul><a href="#contact" class="btn-link">Parler à un expert</a></div>
       <div class="pq-card reveal d1"><div class="pq-num">02</div><h3 class="pq-title">Particuliers & DIY</h3><p class="pq-desc">Vous rénovez ou construisez ? Nos équipes vous guident pas à pas, sans jargon, pour que votre projet soit une vraie réussite.</p><ul class="pq-list"><li>Conseil personnalisé gratuit</li><li>Matériaux au détail comme en grande quantité</li><li>Exemples et inspiration sur place</li><li>Orientation vers des artisans de confiance</li></ul><a href="#contact" class="btn-link">Nous poser une question</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ÉVÉNEMENTS & ACTUALITÉS ──────────────────────────────── -->
+<section class="section" id="evenements" style="display:none;">
+  <div class="container">
+    <div class="ev-intro">
+      <div>
+        <p class="label reveal">Actualités</p>
+        <h2 class="h2 reveal">Nos <em>événements</em><br>& actualités</h2>
+      </div>
+      <div>
+        <p class="lead reveal">Journées portes ouvertes, ateliers, promotions — restez informés de tout ce qui se passe chez CHARRIERE Bois.</p>
+      </div>
+    </div>
+    <div class="ev-grid" id="ev-grid">
+      <div class="ev-empty">Aucun événement pour le moment.</div>
     </div>
   </div>
 </section>
@@ -833,8 +894,85 @@ if (window.netlifyIdentity) {
   });
 }
 
+
+// ── ÉVÉNEMENTS ───────────────────────────────────────────────
+async function loadEvenements() {
+  try {
+    // Lister les fichiers d'événements depuis le dossier content/evenements/
+    // Decap CMS crée des fichiers JSON individuels dans ce dossier
+    const index = await loadJSON('content/evenements/index.json');
+    let evenements = [];
+
+    if (index && Array.isArray(index)) {
+      // Si un fichier index existe
+      evenements = index;
+    } else {
+      // Fallback : chercher les fichiers connus
+      return;
+    }
+
+    // Filtrer : garder seulement ceux marqués "en_avant" ou tous si aucun
+    const aAfficher = evenements.filter(e => e.en_avant).length > 0
+      ? evenements.filter(e => e.en_avant)
+      : evenements;
+
+    if (aAfficher.length === 0) return;
+
+    // Afficher la section et les liens nav
+    const section = document.getElementById('evenements');
+    if (section) section.style.display = '';
+    ['nav-evenements','mob-evenements','ft-evenements'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = '';
+    });
+
+    // Types
+    const typeLabels = {
+      jpo: 'Portes ouvertes', atelier: 'Atelier',
+      promo: 'Promotion', fermeture: 'Fermeture', actu: 'Actualité'
+    };
+    const typeIcons = {
+      jpo:'🏠', atelier:'🪚', promo:'🎉', fermeture:'🔒', actu:'📢'
+    };
+
+    const grid = document.getElementById('ev-grid');
+    if (!grid) return;
+
+    grid.innerHTML = aAfficher.slice(0,3).map(ev => {
+      const date = ev.date ? new Date(ev.date).toLocaleDateString('fr-FR', {
+        day:'numeric', month:'long', year:'numeric'
+      }) : '';
+      const type = ev.type || 'actu';
+      const label = typeLabels[type] || 'Actualité';
+      const icon = typeIcons[type] || '📢';
+      const img = ev.image
+        ? `<img src="${ev.image}" alt="${ev.title || ''}">`
+        : `<span style="font-size:48px">${icon}</span>`;
+
+      return `<div class="ev-card reveal">
+        <div class="ev-card-img">
+          ${img}
+          <span class="ev-type-badge ev-type-${type}">${label}</span>
+        </div>
+        <div class="ev-body">
+          ${date ? `<div class="ev-date">${date}</div>` : ''}
+          <div class="ev-title">${ev.title || ''}</div>
+          <div class="ev-desc">${ev.resume || ''}</div>
+        </div>
+      </div>`;
+    }).join('');
+
+    // Ré-observer les nouveaux éléments reveal
+    grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  } catch(e) {
+    // Pas d'événements, la section reste cachée
+  }
+}
+
 // ── INIT ─────────────────────────────────────────────────────
 initSite();
+loadEvenements();
 </script>
 </body>
 </html>
