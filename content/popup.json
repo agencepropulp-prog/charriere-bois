@@ -1,6 +1,6 @@
 {
   "actif": true,
-  "type": "info",
+  "type": "evenement",
   "titre": "Journée Portes Ouvertes",
   "contenu": "Venez découvrir nos nouveautés le samedi 15 juin de 9h à 13h !",
   "btn_texte": "En savoir plus",
