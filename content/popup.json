@@ -1,10 +1,10 @@
 {
-  "actif": false,
+  "actif": true,
   "type": "info",
   "titre": "Journée Portes Ouvertes",
   "contenu": "Venez découvrir nos nouveautés le samedi 15 juin de 9h à 13h !",
   "btn_texte": "En savoir plus",
   "btn_lien": "#contact",
   "image": "",
-  "date_fin": ""
+  "date_fin": "2026-05-22T12:15:00.000+02:00"
 }
